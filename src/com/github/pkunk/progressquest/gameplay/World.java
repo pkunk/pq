@@ -149,7 +149,7 @@ public class World {
 
     public static String impressiveGuy() {
         return Res.IMPRESSIVE_TITLES.pick() +
-                (PqUtils.random(2) == 0 ? " of the " + Res.RACES.pick() : " of " + generateName());
+                (PqUtils.random(2) == 0 ? " of the " + Res.RACES.pick().getName() : " of " + generateName());
     }
 
     private static String prefix(String[] array, int m, String s, String sep) {

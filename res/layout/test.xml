@@ -1,7 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	      android:layout_width="fill_parent"
+	      android:layout_height="fill_parent"
+	      android:orientation="vertical"
+	>
+    <TextView android:id="@+id/task"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-
+              android:layout_height="wrap_content"
+              android:text=""
+            />
+    <com.github.pkunk.progressquest.ui.TextProgressBar
+	    android:id="@+id/taskBar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    style="@android:style/Widget.ProgressBar.Horizontal"
+	    />
+    <ScrollView android:id="@+id/scroll"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:orientation="vertical"
+                >
+            <TextView android:id="@+id/characterTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Character Sheet"
+                    />
+            <TextView android:id="@+id/traits"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <TextView android:id="@+id/stats"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <TextView android:id="@+id/experienceTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Experience"
+                    />
+            <com.github.pkunk.progressquest.ui.TextProgressBar
+                    android:id="@+id/levelBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    />
+            <TextView android:id="@+id/spellbookTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Spell Book"
+                    />
+            <TextView android:id="@+id/spellbook"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <TextView android:id="@+id/equipmentTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Equipment"
+                    />
+            <TextView android:id="@+id/equipment"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <TextView android:id="@+id/inventoryTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Inventory"
+                    />
+            <TextView android:id="@+id/inventory"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <TextView android:id="@+id/encumbranceTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Encumbrance"
+                    />
+            <com.github.pkunk.progressquest.ui.TextProgressBar
+                    android:id="@+id/encumbranceBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    />
+            <TextView android:id="@+id/plotTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Plot Development"
+                    />
+            <TextView android:id="@+id/plot"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <com.github.pkunk.progressquest.ui.TextProgressBar
+                    android:id="@+id/plotBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    />
+            <TextView android:id="@+id/questsTitle"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:text="Quests"
+                    />
+            <TextView android:id="@+id/quests"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:text=""
+                    />
+            <com.github.pkunk.progressquest.ui.TextProgressBar
+                    android:id="@+id/questsBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

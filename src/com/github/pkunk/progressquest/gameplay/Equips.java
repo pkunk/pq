@@ -13,7 +13,7 @@ public class Equips extends ArrayList<String> {
     public static final int WEAPON  = 0;
     public static final int SHIELD  = 1;
 
-    public static final int EQUIPS = 11;
+    public static final int EQUIP_NUM = 11;
     
     public static final String[] label = new String[] {
             "Weapon",
@@ -30,9 +30,9 @@ public class Equips extends ArrayList<String> {
     };
 
     public Equips() {
-        super(EQUIPS);
-        assert EQUIPS == label.length;
-        for (int i=0; i<EQUIPS; i++) {
+        super(EQUIP_NUM);
+        assert EQUIP_NUM == label.length;
+        for (int i=0; i< EQUIP_NUM; i++) {
             add("");
         }
     }

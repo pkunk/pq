@@ -6,10 +6,8 @@ import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.ResList;
 import com.github.pkunk.progressquest.util.Roman;
 
-import java.util.LinkedList;
-import java.util.Locale;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Queue;
 
 /**
  * User: pkunk
@@ -21,7 +19,8 @@ public class Player {
     private SpellBook spellbook;
     private Equips equips;
     private Inventory inventory;
-    private Queue<String> quests;
+    private LinkedList<String> plots;
+    private LinkedList<String> quests;
     private Game game;
 
     private ProgressCounter expProgress;
@@ -43,13 +42,14 @@ public class Player {
         player.spellbook = new SpellBook();
         player.equips = new Equips();
         player.inventory = new Inventory();
+        player.plots = new LinkedList<String>();
         player.quests = new LinkedList<String>();
 
         player.currentTask = "Loading....";
         player.currentTaskTime = 2000;
 
         player.expProgress = new ProgressCounter(player.levelUpTime());
-        player.plotProgress = new ProgressCounter(26);
+        player.plotProgress = new ProgressCounter(0);
         player.questProgress = new ProgressCounter(1);
         player.encumProgress = new ProgressCounter(0);
         player.recalculateEncum();
@@ -63,11 +63,19 @@ public class Player {
         player.game.task = Task.emptyTask();
         player.game.tasks = 0;
 
+        player.plots.add(player.game.bestplot);
         player.queuePlot(new PlotTask("Experiencing an enigmatic and foreboding night vision", 10));
         player.queuePlot(new PlotTask("Much is revealed about that wise old bastard you'd underestimated", 6));
         player.queuePlot(new PlotTask("A shocking series of events leaves you alone and bewildered, but resolute", 6));
         player.queuePlot(new PlotTask("Drawing upon an unrealized reserve of determination, you set out on a long and dangerous journey", 4));
         player.queuePlot(new PlotTask("Loading", 2, true));
+
+        int plotTime = 0;
+        for (PlotTask plotTask : player.game.plotQueue) {
+            plotTime += plotTask.getTime();
+        }
+        player.plotProgress.reset(plotTime);
+
         return player;
     }
 
@@ -109,6 +117,7 @@ public class Player {
                     }
                     inventory.remove(item);
                     inventory.add(Inventory.GOLD, amt);
+                    recalculateEncum();
                 }
                 if (inventory.size() > 1) {
 //                    Inventory.scrollToTop();
@@ -118,7 +127,6 @@ public class Player {
                     game.task = Task.sellTask();
                     return;
                 }
-                recalculateEncum();
             }
 
             Task old = game.task;
@@ -183,7 +191,7 @@ public class Player {
     }
 
     private void winEquip() {
-        int posn = PqUtils.random(Equips.EQUIPS);
+        int posn = PqUtils.random(Equips.EQUIP_NUM);
 
         ResList<EquipItem> stuff, better, worse;
 
@@ -248,7 +256,7 @@ public class Player {
         game.act += 1;
         plotProgress.reset(60 * 60 * (1 + 5 * game.act)); // 1 hr + 5/act
         game.bestplot = "Act " + Roman.toRoman(game.act);
-//        Plots.AddUI((game.bestplot = 'Act ' + toRoman(game.act)));
+        plots.add(game.bestplot);
 
         if (game.act > 1) {
             winItem();
@@ -320,7 +328,7 @@ public class Player {
         }
 //        if (!game.Quests) game.Quests = [];
 //        while (game.Quests.length > 99) game.Quests.shift();
-//        game.Quests.push(caption);
+        quests.add(caption);
         game.bestquest = caption;
 //        Quests.AddUI(caption);
 
@@ -431,8 +439,7 @@ public class Player {
     }
 
 
-    // GETTERS
-
+    // Getters
 
     public String getCurrentTask() {
         return currentTask;
@@ -440,5 +447,65 @@ public class Player {
 
     public int getCurrentTaskTime() {
         return currentTaskTime;
+    }
+
+    public Traits getTraits() {
+        return traits;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public Map<String,Roman> getSpellBook() {
+        return spellbook;
+    }
+
+    public List<String> getEquip() {
+        return equips;
+    }
+
+    public Map<String,Integer> getInventory() {
+        return inventory;
+    }
+
+    public List<String> getPlot() {
+        return plots;
+    }
+
+    public List<String> getQuests() {
+        return quests;
+    }
+
+    public int getCurrentExp() {
+        return expProgress.getCurrent();
+    }
+
+    public int getMaxExp() {
+        return expProgress.getMax();
+    }
+
+    public int getCurrentEncumbrance() {
+        return encumProgress.getCurrent();
+    }
+
+    public int getMaxEncumbrance() {
+        return encumProgress.getMax();
+    }
+
+    public int getCurrentPlotProgress() {
+        return plotProgress.getCurrent();
+    }
+
+    public int getMaxPlotProgress() {
+        return plotProgress.getMax();
+    }
+
+    public int getCurrentQuestProgress() {
+        return questProgress.getCurrent();
+    }
+
+    public int getMaxQuestProgress() {
+        return questProgress.getMax();
     }
 }

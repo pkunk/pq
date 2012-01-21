@@ -44,9 +44,9 @@ public class GameplayService extends Service {
         public void run() {
             Log.d(TAG, "Turn");
             if (player != null) {
-                notifyGameplayListeners();
                 makeTurn();
                 handler.postDelayed(this, player.getCurrentTaskTime());
+                notifyGameplayListeners();
             }
         }
     };

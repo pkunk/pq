@@ -56,6 +56,11 @@ public class PqUtils {
         else return s + "s";
     }
 
+    /**
+     *
+     * @param s time in seconds
+     * @return human readable rough time
+     */
     public static String roughTime(int s) {
         if (s < 120) return s + " seconds";
         else if (s < 60 * 120) return s/60 + " minutes";
