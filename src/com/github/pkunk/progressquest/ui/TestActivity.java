@@ -30,8 +30,10 @@ import java.util.Map;
 public class TestActivity extends Activity implements GameplayServiceListener {
     private static final String TAG = TestActivity.class.getCanonicalName();
 
-    GameplayService service;
-    volatile boolean isBound = false;
+    private GameplayService service;
+    private volatile boolean isBound = false;
+
+    private TaskBarUpdater taskBarUpdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,16 @@ public class TestActivity extends Activity implements GameplayServiceListener {
         super.onStart();
         // Bind to GameplayService
         Intent intent = new Intent(this, GameplayService.class);
-        startService(intent);
+        startService(intent);   //todo: remove to let service die
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        taskBarUpdater = new TaskBarUpdater();
         taskBarUpdater.execute();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        taskBarUpdater.cancel(true);
         // Unbind from the service
         if (isBound) {
             TestActivity.this.service.removeGameplayListener(TestActivity.this);
@@ -84,7 +88,7 @@ public class TestActivity extends Activity implements GameplayServiceListener {
     }
 
      /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection connection = new ServiceConnection() {
+    private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName className,
@@ -112,14 +116,14 @@ public class TestActivity extends Activity implements GameplayServiceListener {
         }
     };
 
-    private AsyncTask taskBarUpdater = new AsyncTask() {
+    private class TaskBarUpdater extends AsyncTask {
         @Override
         protected Object doInBackground(Object... params) {
             while (!isCancelled()) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    break;
                 }
                 publishProgress();
             }
@@ -132,11 +136,11 @@ public class TestActivity extends Activity implements GameplayServiceListener {
             taskBar.incrementProgressBy(100);
             taskBar.setText((taskBar.getProgress()*100/taskBar.getMax()) + "%");
         }
-    };
+    }
 
     private class UiUpdater implements Runnable {
 
-        private Player player;
+        private final Player player;
 
         public UiUpdater(Player player) {
             this.player = player;
