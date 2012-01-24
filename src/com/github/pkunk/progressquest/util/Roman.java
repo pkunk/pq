@@ -39,19 +39,29 @@ public final class Roman {
         return roman;
     }
 
-    private static final char[] R = {'ↂ', 'ↁ', 'M', 'D', 'C', 'L', 'X', 'V', 'I'};
+    private static final char[] R = {'M', 'D', 'C', 'L', 'X', 'V', 'I'};
 
-    private static final int MAX = 10000; // value of R[0], must be a power of 10
+    private static final int MAX = 1000; // value of R[0], must be a power of 10
 
     private static final int[][] DIGITS = {
             {},{0},{0,0},{0,0,0},{0,1},{1},
             {1,0},{1,0,0},{1,0,0,0},{0,2}};
 
     public static String toRoman(int value) {
-        if (value < 0 || value >= MAX*4) throw new IllegalArgumentException(
-                "toRoman: " + value + " is not between 0 and " + (MAX*4-1));
-        if (value == 0) return "N";
+        if (value < 0) {
+            throw new IllegalArgumentException(value + "is wrong - Romans are always positive");
+        }
+        if (value == 0) {
+            return "N";
+        }
+        
         StringBuilder sb = new StringBuilder();
+        
+        while (value > MAX) {
+            value -= MAX;
+            sb.append(R[0]);
+        }
+        
         for (int i = 0, m = MAX; m > 0; m /= 10, i += 2) {
             int[] d = DIGITS[(value/m)%10];
             for (int n: d) sb.append(R[i-n]);
