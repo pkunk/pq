@@ -31,6 +31,15 @@ public class Player {
     private String currentTask;
     private int currentTaskTime;
 
+    private boolean isTraitsUpdated;
+    private boolean isStatsUpdated;
+    private boolean isSpellsUpdated;
+    private boolean isEquipUpdated;
+    private boolean isItemsUpdated;
+    private boolean isPlotUpdated;
+    private boolean isQuestsUpdated;
+    private boolean saveGame;
+
     private Player() {
     }
 
@@ -55,15 +64,17 @@ public class Player {
         player.recalculateEncum();
 
         player.game.act = 0;
-        player.game.bestequip = "Sharp Rock";
-        player.game.bestplot = "Prologue";
-        player.game.bestquest = "";
+        player.game.bestSpell = "";
+        player.game.bestEquip = "Sharp Rock";
+        player.game.bestPlot = "Prologue";
+        player.game.bestQuest = "";
         player.game.plotQueue = new LinkedList<PlotTask>();
-        player.game.questmonster = null;
+        player.game.questMonster = null;
         player.game.task = Task.emptyTask();
         player.game.tasks = 0;
+        player.hotOrNot();
 
-        player.plots.add(player.game.bestplot);
+        player.plots.add(player.game.bestPlot);
         player.queuePlot(new PlotTask("Experiencing an enigmatic and foreboding night vision", 10));
         player.queuePlot(new PlotTask("Much is revealed about that wise old bastard you'd underestimated", 6));
         player.queuePlot(new PlotTask("A shocking series of events leaves you alone and bewildered, but resolute", 6));
@@ -76,6 +87,8 @@ public class Player {
         }
         player.plotProgress.reset(plotTime);
 
+        player.setAllFlags();
+
         return player;
     }
 
@@ -86,13 +99,16 @@ public class Player {
 
     private void levelUp() {
         traits.levelUp();
+        isTraitsUpdated = true;
         stats.inc(Stats.HP_MAX, Stats.CON / 3 + 1 + PqUtils.random(4));
         stats.inc(Stats.MP_MAX, Stats.INT / 3 + 1 + PqUtils.random(4));
+        isStatsUpdated = true;
         winStat();
         winStat();
         winSpell();
         expProgress.reset(levelUpTime());
-//        Brag('level');
+        hotOrNot();
+        saveGame = true;
     }
 
     private void dequeue() {
@@ -103,10 +119,12 @@ public class Player {
                 } else if (game.task.getMonster().getLoot().length() > 0) {
                     inventory.add(game.task.getMonster().getName().toLowerCase(Locale.US) + " " + game.task.getMonster().getLoot(),1);
                     recalculateEncum();
+                    isItemsUpdated = true;
                 }
             } else if (game.task.isBuying()) {
                 // buy some equipment
                 inventory.add(Inventory.GOLD,-equipPrice());
+                isItemsUpdated = true;
                 winEquip();
             } else if ((game.task.isMarket()) || (game.task.isSell())) {
                 if (game.task.isSell()) {
@@ -118,6 +136,7 @@ public class Player {
                     inventory.remove(item);
                     inventory.add(Inventory.GOLD, amt);
                     recalculateEncum();
+                    isItemsUpdated = true;
                 }
                 if (inventory.size() > 1) {
 //                    Inventory.scrollToTop();
@@ -136,7 +155,7 @@ public class Player {
                 String desc = plotTask.getDescription();
                 if (plotTask.isPlot()) {
                     completeAct();
-                    desc = "Loading " + game.bestplot;
+                    desc = "Loading " + game.bestPlot;
                 }
                 task(desc, plotTask.getTime() * 1000);
             } else if (encumProgress.done()) {
@@ -183,11 +202,14 @@ public class Player {
         if (toRise == Stats.STR) {
             recalculateEncum();
         }
+        isStatsUpdated = true;
     }
 
     private void winSpell() {
         spellbook.addR(Res.SPELLS.get(PqUtils.randomLow(Math.min(stats.get(Stats.WIS) + traits.getLevel(),
                 Res.SPELLS.size()))), 1);
+        isSpellsUpdated = true;
+        hotOrNot();
     }
 
     private void winEquip() {
@@ -224,8 +246,9 @@ public class Player {
         if (plus > 0) name = "+" + name;
 
         equips.set(posn, name);
-        game.bestequip = name;
-        if (posn > 1) game.bestequip += " " + Equips.label[posn];
+        game.bestEquip = name;
+        if (posn > 1) game.bestEquip += " " + Equips.label[posn];
+        isEquipUpdated = true;
     }
 
     private int equipPrice() {
@@ -237,6 +260,7 @@ public class Player {
     private void winItem() {
         inventory.add(World.getSpecialItem(), 1);
         recalculateEncum();
+        isItemsUpdated = true;
     }
 
     private void recalculateEncum() {
@@ -255,22 +279,23 @@ public class Player {
 //        Plots.CheckAll();
         game.act += 1;
         plotProgress.reset(60 * 60 * (1 + 5 * game.act)); // 1 hr + 5/act
-        game.bestplot = "Act " + Roman.toRoman(game.act);
-        plots.add(game.bestplot);
+        game.bestPlot = "Act " + Roman.toRoman(game.act);
+        plots.add(game.bestPlot);
 
         if (game.act > 1) {
             winItem();
             winEquip();
         }
 
-//        Brag('act');
+        isPlotUpdated = true;
+        saveGame = true;
     }
 
 
     private void completeQuest() {
         questProgress.reset(50 + PqUtils.randomLow(1000));
         if (quests.size() > 0) {
-//            Log("Quest completed: " + game.bestquest);
+//            Log("Quest completed: " + game.bestQuest);
 //            Quests.CheckAll();
             switch (PqUtils.random(4)) {
                 case 0: winSpell(); break;
@@ -283,7 +308,7 @@ public class Player {
             quests.remove();
         }
 
-        game.questmonster = null;
+        game.questMonster = null;
         String caption = "";
         switch (PqUtils.random(5)) {
             case 0:
@@ -295,11 +320,11 @@ public class Player {
                     int l = m.getLevel();
                     if (i == 1 || Math.abs(l - level) < Math.abs(lev - level)) {
                         lev = l;
-                        game.questmonster = m;
-                        game.questmonsterindex = montag;
+                        game.questMonster = m;
+                        game.questMonsterIndex = montag;
                     }
                 }
-                caption = "Exterminate " + PqUtils.definite(game.questmonster.getName(), 2);
+                caption = "Exterminate " + PqUtils.definite(game.questMonster.getName(), 2);
                 break;
             case 1:
                 caption = "Seek " + PqUtils.definite(World.getInterestingItem(), 1);
@@ -319,23 +344,24 @@ public class Player {
                     int l = m.getLevel();
                     if ((i == 1) || (Math.abs(l - level) < Math.abs(mlev - level))) {
                         mlev = l;
-                        game.questmonster = m;
+                        game.questMonster = m;
                     }
                 }
-                caption = "Placate " + PqUtils.definite(game.questmonster.getName(), 2);
-                game.questmonster = null;  // We're trying to placate them, after all
+                caption = "Placate " + PqUtils.definite(game.questMonster.getName(), 2);
+                game.questMonster = null;  // We're trying to placate them, after all
                 break;
         }
 //        if (!game.Quests) game.Quests = [];
 //        while (game.Quests.length > 99) game.Quests.shift();
         quests.add(caption);
-        game.bestquest = caption;
+        game.bestQuest = caption;
+        isQuestsUpdated = true;
 //        Quests.AddUI(caption);
 
 
 //        Log("Commencing quest: " + caption);
-
-//        SaveGame();
+        hotOrNot();
+        saveGame = true;
     }
 
     /**
@@ -355,6 +381,7 @@ public class Player {
 //            game.elapsed += TaskBar.Max().div(1000);
 
 //            ClearAllSelections();
+            clearAllFlags();
 
 //            if (game.kill == 'Loading....')
 //                TaskBar.reset(0);  // Not sure if this is still the ticket
@@ -397,6 +424,28 @@ public class Player {
 //        StartTimer();
     }
 
+    private void clearAllFlags() {
+        isTraitsUpdated = false;
+        isStatsUpdated = false;
+        isSpellsUpdated = false;
+        isEquipUpdated = false;
+        isItemsUpdated = false;
+        isPlotUpdated = false;
+        isQuestsUpdated = false;
+        saveGame = false;
+    }
+
+    private void setAllFlags() {
+        isTraitsUpdated = true;
+        isStatsUpdated = true;
+        isSpellsUpdated = true;
+        isEquipUpdated = true;
+        isItemsUpdated = true;
+        isPlotUpdated = true;
+        isQuestsUpdated = true;
+        saveGame = true;
+    }
+
     private void interplotCinematic() {
         switch (PqUtils.random(3)) {
             case 0:
@@ -436,6 +485,35 @@ public class Player {
 
     private void queuePlot(PlotTask plotTask) {
         game.plotQueue.add(plotTask);
+    }
+
+    private void hotOrNot() {
+        // Figure out which spell is best
+        if (spellbook.size() > 0) {
+            int i = 1;
+            int best = 0;
+            Map.Entry<String,Roman> bestSpell = null;
+            for (Map.Entry<String,Roman> spell : spellbook.entrySet()) {
+                if (bestSpell == null ||
+                        i * spell.getValue().getInt() > best * bestSpell.getValue().getInt()) {
+                    bestSpell = spell;
+                    best = i;
+                }
+                i++;
+            }
+            game.bestSpell = bestSpell.getKey() + " " + bestSpell.getValue();
+        } else {
+            game.bestSpell = "";
+        }
+
+        /// And which stat is best?
+        int bestStat = 0;
+        for (int i=1; i<Stats.BASE_STATS_NUM; i++) {
+            if (stats.get(i) > stats.get(bestStat)) {
+                bestStat = i;
+            }
+        }
+        game.bestStat = Stats.label[bestStat] + " " + stats.get(bestStat);
     }
 
 
@@ -507,5 +585,53 @@ public class Player {
 
     public int getMaxQuestProgress() {
         return questProgress.getMax();
+    }
+
+    public String getBestPlot() {
+        return game.bestPlot;
+    }
+
+    public String getBestEquip() {
+        return game.bestEquip;
+    }
+
+    public String getBestSpell() {
+        return game.bestSpell;
+    }
+
+    public String getBestStat() {
+        return game.bestStat;
+    }
+
+    public boolean isTraitsUpdated() {
+        return isTraitsUpdated;
+    }
+
+    public boolean isStatsUpdated() {
+        return isStatsUpdated;
+    }
+
+    public boolean isSpellsUpdated() {
+        return isSpellsUpdated;
+    }
+
+    public boolean isEquipUpdated() {
+        return isEquipUpdated;
+    }
+
+    public boolean isItemsUpdated() {
+        return isItemsUpdated;
+    }
+
+    public boolean isPlotUpdated() {
+        return isPlotUpdated;
+    }
+
+    public boolean isQuestsUpdated() {
+        return isQuestsUpdated;
+    }
+
+    public boolean isSaveGame() {
+        return saveGame;
     }
 }

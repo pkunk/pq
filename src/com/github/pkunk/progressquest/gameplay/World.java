@@ -44,9 +44,9 @@ public class World {
             }
             lev = level;
             monster = new Monster(name, level, "*");
-        } else if (game.questmonster != null && PqUtils.odds(1, 4)) {
+        } else if (game.questMonster != null && PqUtils.odds(1, 4)) {
             // Use the quest monster
-            monster = Res.MONSTERS.get(game.questmonsterindex);
+            monster = Res.MONSTERS.get(game.questMonsterIndex);
             lev = monster.getLevel();
         } else {
             // Pick the monster out of so many random ones closest to the level we want

@@ -9,13 +9,15 @@ import java.util.Queue;
 public class Game {
     Task task;
     int tasks;
-    String bestequip;
+    String bestStat;
+    String bestSpell;
+    String bestEquip;
     int act;
-    String bestplot;
-    String bestquest;
+    String bestPlot;
+    String bestQuest;
     Queue<PlotTask> plotQueue;
-    Monster questmonster;
-    int questmonsterindex;
+    Monster questMonster;
+    int questMonsterIndex;
 
 
 
