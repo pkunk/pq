@@ -1,4 +1,4 @@
-package com.github.pkunk.progressquest.ui;
+package com.github.pkunk.progressquest.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

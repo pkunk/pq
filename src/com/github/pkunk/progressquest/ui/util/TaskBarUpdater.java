@@ -2,7 +2,7 @@ package com.github.pkunk.progressquest.ui.util;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import com.github.pkunk.progressquest.ui.TextProgressBar;
+import com.github.pkunk.progressquest.ui.view.TextProgressBar;
 
 /**
 * User: pkunk

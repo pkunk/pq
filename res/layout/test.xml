@@ -10,7 +10,7 @@
               android:layout_height="wrap_content"
               android:text=""
             />
-    <com.github.pkunk.progressquest.ui.TextProgressBar
+    <com.github.pkunk.progressquest.ui.view.TextProgressBar
 	    android:id="@+id/taskBar"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                       android:textStyle="bold"
                       android:text="Experience"
                     />
-            <com.github.pkunk.progressquest.ui.TextProgressBar
+            <com.github.pkunk.progressquest.ui.view.TextProgressBar
                     android:id="@+id/levelBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                       android:textStyle="bold"
                       android:text="Encumbrance"
                     />
-            <com.github.pkunk.progressquest.ui.TextProgressBar
+            <com.github.pkunk.progressquest.ui.view.TextProgressBar
                     android:id="@+id/encumbranceBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                       android:layout_height="wrap_content"
                       android:text=""
                     />
-            <com.github.pkunk.progressquest.ui.TextProgressBar
+            <com.github.pkunk.progressquest.ui.view.TextProgressBar
                     android:id="@+id/plotBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                       android:layout_height="wrap_content"
                       android:text=""
                     />
-            <com.github.pkunk.progressquest.ui.TextProgressBar
+            <com.github.pkunk.progressquest.ui.view.TextProgressBar
                     android:id="@+id/questsBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

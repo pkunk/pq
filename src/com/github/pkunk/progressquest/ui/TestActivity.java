@@ -18,6 +18,7 @@ import com.github.pkunk.progressquest.service.GameplayService;
 import com.github.pkunk.progressquest.service.GameplayService.GameplayBinder;
 import com.github.pkunk.progressquest.service.GameplayServiceListener;
 import com.github.pkunk.progressquest.ui.util.TaskBarUpdater;
+import com.github.pkunk.progressquest.ui.view.TextProgressBar;
 import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.Roman;
 
