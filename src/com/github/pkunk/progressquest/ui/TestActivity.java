@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -18,6 +17,7 @@ import com.github.pkunk.progressquest.gameplay.Traits;
 import com.github.pkunk.progressquest.service.GameplayService;
 import com.github.pkunk.progressquest.service.GameplayService.GameplayBinder;
 import com.github.pkunk.progressquest.service.GameplayServiceListener;
+import com.github.pkunk.progressquest.ui.util.TaskBarUpdater;
 import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.Roman;
 
@@ -48,7 +48,7 @@ public class TestActivity extends Activity implements GameplayServiceListener {
         Intent intent = new Intent(this, GameplayService.class);
         startService(intent);   //todo: remove to let service die
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        taskBarUpdater = new TaskBarUpdater();
+        taskBarUpdater = new TaskBarUpdater(this, R.id.taskBar);
         taskBarUpdater.execute();
     }
 
@@ -115,28 +115,6 @@ public class TestActivity extends Activity implements GameplayServiceListener {
             isBound = false;
         }
     };
-
-    private class TaskBarUpdater extends AsyncTask {
-        @Override
-        protected Object doInBackground(Object... params) {
-            while (!isCancelled()) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    break;
-                }
-                publishProgress();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Object... values) {
-            TextProgressBar taskBar = (TextProgressBar) findViewById(R.id.taskBar);
-            taskBar.incrementProgressBy(100);
-            taskBar.setText((taskBar.getProgress()*100/taskBar.getMax()) + "%");
-        }
-    }
 
     private class UiUpdater implements Runnable {
 
