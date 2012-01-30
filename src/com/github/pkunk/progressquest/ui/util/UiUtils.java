@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.TableRow;
 import android.widget.TextView;
+import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.ui.view.TextProgressBar;
 
 /**
@@ -20,6 +21,7 @@ public class UiUtils {
             textView.setText(title);
             row.addView(textView);
         }
+        row.setBackgroundColor(0xFFCCCCCC);
         return row;
     }
 
@@ -37,6 +39,7 @@ public class UiUtils {
         TableRow row = new TableRow(context);
 
         CheckBox checkBox = new CheckBox(context);
+        checkBox.setButtonDrawable(R.drawable.pqcheckbox);
         checkBox.setClickable(false);
         checkBox.setChecked(checked);
         row.addView(checkBox);

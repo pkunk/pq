@@ -4,6 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="#CCCCCC"
         >
 
     <TabHost
@@ -31,6 +32,7 @@
                         android:layout_height="wrap_content"
                         />
             </HorizontalScrollView>
+
             <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent"
@@ -55,7 +57,6 @@
                             android:gravity="clip_vertical"
                             >
                         <LinearLayout
-                                android:id="@+id/ph_tab_char"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -64,6 +65,7 @@
                                     android:id="@+id/ph_traits_table"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
+                                    style="@style/RedmondTable"
                                     android:stretchColumns="*"
                                     />
                             <TextView
@@ -81,35 +83,56 @@
                                     android:id="@+id/ph_stats_table"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
+                                    style="@style/RedmondTable"
                                     android:stretchColumns="*"
                                     />
                         </LinearLayout>
                     </ScrollView>
                 </LinearLayout>
-                <LinearLayout
+
+                <RelativeLayout
                         android:id="@+id/ph_tab_spell"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         >
-                    <TextView
+                    <LinearLayout
+                            android:id="@+id/ph_tab_spell_header"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="Spell Book"
-                            />
-                    <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical"
                             >
-                        <TableLayout
-                                android:id="@+id/ph_spell_table"
+                        <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:stretchColumns="0"
-                        />
+                                android:textStyle="bold"
+                                android:text="Spell Book"
+                                />
+                    </LinearLayout>
+                    <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_below="@id/ph_tab_spell_header"
+                            android:layout_alignParentBottom="true"
+                            android:fillViewport="true"
+                            >
+                        <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:orientation="vertical"
+                                >
+                            <TableLayout
+                                    android:id="@+id/ph_spell_table"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    style="@style/RedmondTable"
+                                    android:stretchColumns="0"
+                                    />
+                        </LinearLayout>
                     </ScrollView>
-                </LinearLayout>
+                </RelativeLayout>
+
                 <LinearLayout
                         android:id="@+id/ph_tab_equip"
                         android:layout_width="fill_parent"
@@ -124,111 +147,185 @@
                             />
                     <ScrollView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <TableLayout
-                                android:id="@+id/ph_equip_table"
+                            android:layout_height="wrap_content"
+                            >
+                        <LinearLayout
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:stretchColumns="*"
-                        />
+                                android:orientation="vertical"
+                                >
+                            <TableLayout
+                                    android:id="@+id/ph_equip_table"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/RedmondTable"
+                                    android:stretchColumns="*"
+                                    />
+                        </LinearLayout>
                     </ScrollView>
                 </LinearLayout>
-                <LinearLayout
+
+                <RelativeLayout
                         android:id="@+id/ph_tab_items"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         >
-                    <TextView
+                    <LinearLayout
+                            android:id="@+id/ph_tab_items_header"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="Encumbrance"
-                            />
-                    <com.github.pkunk.progressquest.ui.view.TextProgressBar
-                            android:id="@+id/ph_encum_bar"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            />
-                    <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="Inventory"
-                            />
-                    <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <TableLayout
-                                android:id="@+id/ph_items_table"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical"
+                            >
+                        <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:stretchColumns="0"
-                        />
+                                android:text="Encumbrance"
+                                />
+                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                                android:id="@+id/ph_encum_bar"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                />
+                        <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="Inventory"
+                                />
+                    </LinearLayout>
+                    <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_below="@id/ph_tab_items_header"
+                            android:layout_alignParentBottom="true"
+                            android:fillViewport="true"
+                            >
+                        <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:orientation="vertical"
+                                >
+                            <TableLayout
+                                    android:id="@+id/ph_items_table"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    style="@style/RedmondTable"
+                                    android:stretchColumns="0"
+                                    />
+                        </LinearLayout>
                     </ScrollView>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+
+                <RelativeLayout
                         android:id="@+id/ph_tab_plot"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         >
-                    <TextView
+                    <LinearLayout
+                            android:id="@+id/ph_tab_plot_header"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="Plot Development"
-                            />
-                    <com.github.pkunk.progressquest.ui.view.TextProgressBar
-                            android:id="@+id/ph_plot_bar"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            />
-                    <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <TableLayout
-                                android:id="@+id/ph_plot_table"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical"
+                            >
+                        <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:stretchColumns="1"
-                        />
+                                android:textStyle="bold"
+                                android:text="Plot Development"
+                                />
+                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                                android:id="@+id/ph_plot_bar"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                            />
+                    </LinearLayout>
+                    <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_below="@id/ph_tab_plot_header"
+                            android:layout_alignParentBottom="true"
+                            android:fillViewport="true"
+                            >
+                        <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:orientation="vertical"
+                                >
+                            <TableLayout
+                                    android:id="@+id/ph_plot_table"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    style="@style/RedmondTable"
+                                    android:stretchColumns="1"
+                                    />
+                        </LinearLayout>
                     </ScrollView>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+
+                <RelativeLayout
                         android:id="@+id/ph_tab_quests"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
                         android:orientation="vertical"
                         >
-                    <com.github.pkunk.progressquest.ui.view.TextProgressBar
-                            android:id="@+id/ph_quests_bar"
+                    <LinearLayout
+                            android:id="@+id/ph_tab_quests_header"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            />
-                    <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="Quests"
-                            />
-                    <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <TableLayout
-                                android:id="@+id/ph_quests_table"
+                            android:orientation="vertical"
+                            >
+                        <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:stretchColumns="1"
-                        />
+                                android:text="Progress"
+                                />
+                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                                android:id="@+id/ph_quests_bar"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                />
+                        <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="Quests"
+                                />
+                    </LinearLayout>
+                    <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_below="@id/ph_tab_quests_header"
+                            android:layout_alignParentBottom="true"
+                            android:fillViewport="true"
+                            >
+                        <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:orientation="vertical"
+                                >
+                            <TableLayout
+                                    android:id="@+id/ph_quests_table"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    style="@style/RedmondTable"
+                                    android:stretchColumns="1"
+                                    />
+                        </LinearLayout>
                     </ScrollView>
-                </LinearLayout>
+                </RelativeLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>
 
+
+    <!-- Statusbar -->
 
     <LinearLayout
             android:id="@+id/ph_statusbar"

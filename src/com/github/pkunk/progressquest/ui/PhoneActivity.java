@@ -49,13 +49,23 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
 //        tabHost = getTabHost();
 
         tabHost.addTab(tabHost.newTabSpec("ph_tab_char").setIndicator("  Character  ").setContent(R.id.ph_tab_char));
-        tabHost.addTab(tabHost.newTabSpec("ph_tab_spell").setIndicator("  Spell Book  ").setContent(R.id.ph_tab_spell));
+        tabHost.addTab(tabHost.newTabSpec("ph_tab_spell").setIndicator("  Spells  ").setContent(R.id.ph_tab_spell));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_equip").setIndicator("  Equip  ").setContent(R.id.ph_tab_equip));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_items").setIndicator("  Inventory  ").setContent(R.id.ph_tab_items));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_plot").setIndicator("  Plot  ").setContent(R.id.ph_tab_plot));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_quests").setIndicator("  Quests  ").setContent(R.id.ph_tab_quests));
 
-        tabHost.setCurrentTab(0);
+        if(savedInstanceState != null ){
+            tabHost.setCurrentTab(savedInstanceState.getInt("tabState"));
+        } else {
+            tabHost.setCurrentTab(0);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("tabState", tabHost.getCurrentTab());
     }
 
     private void setupTabHost() {
