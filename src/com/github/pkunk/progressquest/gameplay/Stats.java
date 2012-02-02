@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.gameplay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: pkunk
@@ -48,5 +49,21 @@ public class Stats extends ArrayList<Integer> {
 
     public void dec(int key, int value) {
         set(key, get(key) - value);
+    }
+
+    public List<String> saveStats() {
+        List<String> result = new ArrayList<String>(STATS_NUM);
+        for (Integer stat : this) {
+            result.add(String.valueOf(stat));
+        }
+        return result;
+    }
+
+    public static Stats loadStats(List<String> strings) {
+        int[] array = new int[strings.size()];
+        for (int i=0; i<array.length; i++) {
+            array[i] = Integer.getInteger(strings.get(i));
+        }
+        return new Stats(array);
     }
 }

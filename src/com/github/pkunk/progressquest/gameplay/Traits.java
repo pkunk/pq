@@ -1,5 +1,10 @@
 package com.github.pkunk.progressquest.gameplay;
 
+import com.github.pkunk.progressquest.util.Vfs;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: pkunk
  * Date: 2012-01-01
@@ -8,12 +13,18 @@ public class Traits {
     private String name;
     private String race;
     private String role;
-    private int level = 1;
+    private int level;
+    
+    private Traits() {
+    }
 
-    public Traits(String name, String race, String role) {
-        this.name = name;
-        this.race = race;
-        this.role = role;
+    public static Traits newTraits(String name, String race, String role) {
+        Traits traits = new Traits();
+        traits.name = name;
+        traits.race = race;
+        traits.role = role;
+        traits.level = 1;
+        return traits;
     }
 
     public String getName() {
@@ -34,5 +45,33 @@ public class Traits {
 
     public void levelUp() {
         level += 1;
+    }
+
+    public List<String> saveTraits() {
+        List<String> result = new ArrayList<String>();
+
+        result.add("name" + Vfs.EQ + name);
+        result.add("race" + Vfs.EQ + race);
+        result.add("role" + Vfs.EQ + role);
+        result.add("level" + Vfs.EQ + level);
+
+        return result;
+    }
+
+    public static Traits loadTraits(List<String> strings) {
+        Traits traits = new Traits();
+        for (String s : strings) {
+            String entry[] = s.split(Vfs.EQ);
+            if ("name".equals(entry[0])) {
+                traits.name = entry[1];
+            } else if ("race".equals(entry[0])) {
+                traits.race = entry[1];
+            } else if ("name".equals(entry[0])) {
+                traits.role = entry[1];
+            } else if ("level".equals(entry[0])) {
+                traits.level = Integer.getInteger(entry[1]);
+            }
+        }
+        return traits;
     }
 }

@@ -3,6 +3,8 @@ package com.github.pkunk.progressquest.gameplay;
 import com.github.pkunk.progressquest.util.ResList;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * User: pkunk
@@ -13,8 +15,6 @@ public class Equips extends ArrayList<String> {
     public static final int WEAPON  = 0;
     public static final int SHIELD  = 1;
 
-    public static final int EQUIP_NUM = 11;
-    
     public static final String[] label = new String[] {
             "Weapon",
             "Shield",
@@ -29,12 +29,22 @@ public class Equips extends ArrayList<String> {
             "Sollerets"
     };
 
-    public Equips() {
+    public static final int EQUIP_NUM = label.length;
+
+    private Equips() {
         super(EQUIP_NUM);
-        assert EQUIP_NUM == label.length;
+    }
+
+    private Equips(Collection<? extends String> collection) {
+        super(collection);
+    }
+
+    public static Equips newEquips() {
+        Equips equips = new Equips();
         for (int i=0; i< EQUIP_NUM; i++) {
-            add("");
+            equips.add("");
         }
+        return equips;
     }
 
     public static EquipItem lPick(ResList<EquipItem> list, int goal) {
@@ -49,4 +59,11 @@ public class Equips extends ArrayList<String> {
         return result;
     }
 
+    public List<String> saveEquips() {
+        return new ArrayList<String>(this);
+    }
+
+    public static Equips loadEquips(List<String> strings) {
+        return new Equips(strings);
+    }
 }

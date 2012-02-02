@@ -5,6 +5,7 @@ import com.github.pkunk.progressquest.init.Res;
 import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.ResList;
 import com.github.pkunk.progressquest.util.Roman;
+import com.github.pkunk.progressquest.util.Vfs;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -19,8 +20,8 @@ public class Player {
     private SpellBook spellbook;
     private Equips equips;
     private Inventory inventory;
-    private LinkedList<String> plots;
-    private LinkedList<String> quests;
+    private QuestList plots;
+    private QuestList quests;
     private Game game;
 
     private ProgressCounter expProgress;
@@ -45,14 +46,14 @@ public class Player {
 
     public static Player newPlayer(Traits traits, Stats stats) {
         Player player = new Player();
-        player.game = new Game();
+        player.game = Game.newGame();
         player.traits = traits;
         player.stats = stats;
-        player.spellbook = new SpellBook();
-        player.equips = new Equips();
-        player.inventory = new Inventory();
-        player.plots = new LinkedList<String>();
-        player.quests = new LinkedList<String>();
+        player.spellbook = SpellBook.newSpellBook();
+        player.equips = Equips.newEquips();
+        player.inventory = Inventory.newInventory();
+        player.plots = QuestList.newQuestList();
+        player.quests = QuestList.newQuestList();
 
         player.currentTask = "Loading....";
         player.currentTaskTime = 2000;
@@ -63,15 +64,6 @@ public class Player {
         player.encumProgress = new ProgressCounter(0);
         player.recalculateEncum();
 
-        player.game.act = 0;
-        player.game.bestSpell = "";
-        player.game.bestEquip = "Sharp Rock";
-        player.game.bestPlot = "Prologue";
-        player.game.bestQuest = "";
-        player.game.plotQueue = new LinkedList<PlotTask>();
-        player.game.questMonster = null;
-        player.game.task = Task.emptyTask();
-        player.game.tasks = 0;
         player.hotOrNot();
 
         player.plots.add(player.game.bestPlot);
@@ -633,5 +625,121 @@ public class Player {
 
     public boolean isSaveGame() {
         return saveGame;
+    }
+
+    // Save/Load
+
+    public Map<String, List<String>> savePlayer() {
+        Map<String, List<String>> result = new HashMap<String, List<String>>();
+
+        result.put("Player", save());
+        result.put("Game", game.saveGame());
+        result.put("Traits", traits.saveTraits());
+        result.put("Stats", stats.saveStats());
+        result.put("SpellBook", spellbook.saveSpellBook());
+        result.put("Equips", equips.saveEquips());
+        result.put("Inventory", inventory.saveInventory());
+        result.put("Plot", plots.saveQuestList());
+        result.put("Quests", quests.saveQuestList());
+        result.put("Annotation", saveAnnotation());
+
+        return result;
+    }
+
+    public static Player loadPlayer(Map<String, List<String>> map) {
+        Player player = new Player();
+
+        for (Entry<String, List<String>> entry : map.entrySet()) {
+            if ("Player".equals(entry.getKey())) {
+                player.load(entry.getValue());
+            } else if  ("Game".equals(entry.getKey())){
+                player.game = Game.loadGame(entry.getValue());
+            } else if  ("Traits".equals(entry.getKey())){
+                player.traits = Traits.loadTraits(entry.getValue());
+            } else if  ("Stats".equals(entry.getKey())){
+                player.stats = Stats.loadStats(entry.getValue());
+            } else if  ("SpellBook".equals(entry.getKey())){
+                player.spellbook = SpellBook.loadSpellBook(entry.getValue());
+            } else if  ("Equips".equals(entry.getKey())){
+                player.equips = Equips.loadEquips(entry.getValue());
+            } else if  ("Inventory".equals(entry.getKey())){
+                player.inventory = Inventory.loadInventory(entry.getValue());
+            } else if  ("Plot".equals(entry.getKey())){
+                player.plots = QuestList.loadQuestList(entry.getValue());
+            } else if  ("Quests".equals(entry.getKey())){
+                player.quests = QuestList.loadQuestList(entry.getValue());
+            }
+        }
+
+        return player;
+    }
+
+    private List<String> save() {
+        List<String> result = new ArrayList<String>();
+
+        result.add("currentTask" + Vfs.EQ + currentTask);
+        result.add("currentTaskTime" + Vfs.EQ + currentTaskTime);
+        result.add("expProgressCurrent" + Vfs.EQ + expProgress.getCurrent());
+        result.add("expProgressMax" + Vfs.EQ + expProgress.getMax());
+        result.add("plotProgressCurrent" + Vfs.EQ + plotProgress.getCurrent());
+        result.add("plotProgressMax" + Vfs.EQ + plotProgress.getMax());
+        result.add("questProgressCurrent" + Vfs.EQ + questProgress.getCurrent());
+        result.add("questProgressMax" + Vfs.EQ + questProgress.getMax());
+        result.add("encumProgressCurrent" + Vfs.EQ + encumProgress.getCurrent());
+        result.add("encumProgressMax" + Vfs.EQ + encumProgress.getMax());
+
+        return result;
+    }
+
+    private List<String> saveAnnotation() {
+        List<String> result = new ArrayList<String>();
+
+        return result;
+    }
+
+    private void load(List<String> strings) {
+        int expProgressCurrent = 0;
+        int expProgressMax = 0;
+        int plotProgressCurrent = 0;
+        int plotProgressMax = 0;
+        int questProgressCurrent = 0;
+        int questProgressMax = 0;
+        int encumProgressCurrent = 0;
+        int encumProgressMax = 0;
+
+        for (String s : strings) {
+            String entry[] = s.split(Vfs.EQ);
+            if ("currentTask".equals(entry[0])) {
+                currentTask = entry[1];
+            } else if ("currentTaskTime".equals(entry[0])) {
+                currentTaskTime = Integer.getInteger(entry[1]);
+            } else if ("expProgressCurrent".equals(entry[0])) {
+                expProgressCurrent = Integer.getInteger(entry[1]);
+            } else if ("expProgressMax".equals(entry[0])) {
+                expProgressMax = Integer.getInteger(entry[1]);
+            } else if ("plotProgressCurrent".equals(entry[0])) {
+                plotProgressCurrent = Integer.getInteger(entry[1]);
+            } else if ("plotProgressMax".equals(entry[0])) {
+                plotProgressMax = Integer.getInteger(entry[1]);
+            } else if ("questProgressCurrent".equals(entry[0])) {
+                questProgressCurrent = Integer.getInteger(entry[1]);
+            } else if ("questProgressMax".equals(entry[0])) {
+                questProgressMax = Integer.getInteger(entry[1]);
+            } else if ("encumProgressCurrent".equals(entry[0])) {
+                encumProgressCurrent = Integer.getInteger(entry[1]);
+            } else if ("encumProgressMax".equals(entry[0])) {
+                encumProgressMax = Integer.getInteger(entry[1]);
+            }
+        }
+
+        expProgress = new ProgressCounter(0);
+        plotProgress = new ProgressCounter(0);
+        questProgress = new ProgressCounter(0);
+        encumProgress = new ProgressCounter(0);
+
+        expProgress.reset(expProgressMax, expProgressCurrent);
+        plotProgress.reset(plotProgressMax, plotProgressCurrent);
+        questProgress.reset(questProgressMax, questProgressCurrent);
+        encumProgress.reset(encumProgressMax, encumProgressCurrent);
     }
 }

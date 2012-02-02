@@ -1,5 +1,7 @@
 package com.github.pkunk.progressquest.gameplay;
 
+import com.github.pkunk.progressquest.util.Vfs;
+
 /**
  * User: pkunk
  * Date: 2012-01-02
@@ -33,6 +35,21 @@ public final class Monster {
 
     public String getLoot() {
         return loot;
+    }
+
+    public String saveMonster() {
+        String result = name + Vfs.SEPARATOR
+                      + level + Vfs.SEPARATOR
+                      + loot;
+        return result;
+    }
+
+    public static Monster loadMonster(String string) {
+        String[] strings = string.split(Vfs.SEPARATOR);
+        String name = strings[0];
+        int level = Integer.valueOf(strings[1]);
+        String loot = strings[2];
+        return new Monster(name, level, loot);
     }
 
     @Override

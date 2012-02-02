@@ -1,5 +1,7 @@
 package com.github.pkunk.progressquest.gameplay;
 
+import com.github.pkunk.progressquest.util.Vfs;
+
 /**
  * User: pkunk
  * Date: 2012-01-15
@@ -29,5 +31,17 @@ public final class PlotTask {
 
     public boolean isPlot() {
         return isPlot;
+    }
+    
+    public String savePlot() {
+        return description + Vfs.SEPARATOR + time + Vfs.SEPARATOR + isPlot;
+    }
+    
+    public static PlotTask loadPlotTask(String string) {
+        String[] strings = string.split(Vfs.SEPARATOR);
+        String description = strings[0];
+        int time = Integer.getInteger(strings[1]);
+        boolean isPlot = Boolean.getBoolean(strings[2]);
+        return new PlotTask(description, time, isPlot);
     }
 }

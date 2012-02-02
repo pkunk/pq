@@ -1,5 +1,7 @@
 package com.github.pkunk.progressquest.gameplay;
 
+import com.github.pkunk.progressquest.util.Vfs;
+
 /**
  * User: pkunk
  * Date: 2012-01-04
@@ -66,6 +68,28 @@ public final class Task {
 
     public Monster getMonster() {
         return monster;
+    }
+
+    public String saveTask() {
+        String result = taskType.toString();
+        if (monster != null) {
+            result += Vfs.SEPARATOR + monster.saveMonster();
+        }
+        return result;
+    }
+
+    public static Task loadTask(String string) {
+        String[] strings = string.split(Vfs.SEPARATOR);
+        TaskType type = TaskType.valueOf(strings[0]);
+        if (type == TaskType.KILL) {
+            String name = strings[1];
+            int level = Integer.valueOf(strings[2]);
+            String loot = strings[3];
+            Monster monster = new Monster(name, level, loot);
+            return new Task(type, monster);
+        } else {
+            return new Task(type, null);
+        }
     }
 
     @Override

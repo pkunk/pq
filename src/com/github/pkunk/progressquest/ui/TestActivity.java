@@ -82,7 +82,7 @@ public class TestActivity extends Activity implements GameplayServiceListener {
     }
 
     private static Player createPlayer() {
-        Traits traits = new Traits("Tester", "Gremlin", "Dancer");
+        Traits traits = Traits.newTraits("Tester", "Gremlin", "Dancer");
         Stats stats = new Stats(new int[]{10,11,12,13,14,15,80,60});
         Player player = Player.newPlayer(traits, stats);
         return player;
