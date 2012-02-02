@@ -51,6 +51,17 @@ public class Stats extends ArrayList<Integer> {
         set(key, get(key) - value);
     }
 
+    public static Stats newBonuses(int... bonuses) {
+
+        int[] stats = new int[STATS_NUM];
+
+        for (int i : bonuses) {
+            stats[i] = 1;
+        }
+
+        return new Stats(stats);
+    }
+
     public List<String> saveStats() {
         List<String> result = new ArrayList<String>(STATS_NUM);
         for (Integer stat : this) {
