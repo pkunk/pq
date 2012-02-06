@@ -78,7 +78,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
         super.onStart();
         // Bind to GameplayService
         Intent intent = new Intent(this, GameplayService.class);
-        startService(intent);   //todo: remove to let service die
+//        startService(intent);   //todo: remove to let service die
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
         taskBarUpdater = new TaskBarUpdater(this, R.id.ph_task_bar);
         taskBarUpdater.execute();
@@ -129,7 +129,13 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             PhoneActivity.this.service.addGameplayListener(PhoneActivity.this);
             Player player = PhoneActivity.this.service.getPlayer();
             if (player == null) {
-                PhoneActivity.this.service.setPlayer(createPlayer());
+                try {
+                    Player savedPlayer = PhoneActivity.this.service.loadPlayer("Tester");
+                    PhoneActivity.this.service.setPlayer(savedPlayer);
+                } catch (Exception e) {
+                    Player newPlayer = createPlayer();
+                    PhoneActivity.this.service.setPlayer(newPlayer);
+                }
                 player = PhoneActivity.this.service.getPlayer();
             }
 

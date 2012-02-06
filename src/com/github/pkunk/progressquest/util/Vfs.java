@@ -23,6 +23,9 @@ public class Vfs {
     public static final String EQ = "=";
     public static final String SEPARATOR = ";";
 
+    public static final String ZIP_EXT = ".zip";
+    public static final String BAK_EXT = ".bak";
+
     public static void writeToFile(Context context, String fileName, Map<String, List<String>> dataMap) throws IOException {
         OutputStream os = context.openFileOutput(fileName, Context.MODE_PRIVATE);
         ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));

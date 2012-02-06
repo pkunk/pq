@@ -7,8 +7,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import com.github.pkunk.progressquest.gameplay.Player;
+import com.github.pkunk.progressquest.util.Vfs;
 
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -17,6 +21,8 @@ import java.util.Set;
  */
 public class GameplayService extends Service {
     private static final String TAG = GameplayService.class.getCanonicalName();
+
+    private static final Object PLAYER_LOCK = new Object();
 
     Handler handler = new Handler();
 
@@ -27,9 +33,11 @@ public class GameplayService extends Service {
     private Player player = null;
 
     public void setPlayer(Player player) {
-        handler.removeCallbacks(updateTask);
-        handler.post(updateTask);
-        this.player = player;
+        synchronized (PLAYER_LOCK) {
+            this.player = player;
+            handler.removeCallbacks(updateTask);
+            handler.post(updateTask);
+        }
     }
 
     public Player getPlayer() {
@@ -44,7 +52,19 @@ public class GameplayService extends Service {
         public void run() {
             Log.d(TAG, "Turn");
             if (player != null) {
-                makeTurn();
+
+                synchronized (PLAYER_LOCK) {
+                    makeTurn();
+                    if (checkToSave()) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                savePlayer();
+                            }
+                        }).start();
+                    }
+                }
+
                 handler.postDelayed(this, player.getCurrentTaskTime());
                 notifyGameplayListeners();
             }
@@ -65,6 +85,32 @@ public class GameplayService extends Service {
         }
     }
 
+    private boolean checkToSave() {
+        return player.isTraitsUpdated() || player.isPlotUpdated() || player.isQuestsUpdated();
+    }
+
+    private void savePlayer() {
+        synchronized (PLAYER_LOCK) {
+            if (player == null) {
+                return;
+            }
+            try {
+                Vfs.writeToFile(this, player.getTraits().getName() + Vfs.ZIP_EXT, player.savePlayer());
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+    }
+
+    public Player loadPlayer(String playerName) throws IOException {
+        Player savedPlayer;
+        synchronized (PLAYER_LOCK) {
+            Map<String, List<String>> playerSaveMap = Vfs.readFromFile(this, playerName + Vfs.ZIP_EXT);
+            savedPlayer = Player.loadPlayer(playerSaveMap);
+        }
+        return savedPlayer;
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
@@ -72,6 +118,8 @@ public class GameplayService extends Service {
 
     @Override
     public void onDestroy() {
+        handler.removeCallbacks(updateTask);
+        savePlayer();
         super.onDestroy();
     }
 
@@ -80,15 +128,6 @@ public class GameplayService extends Service {
             // Return this instance of GameplayService so clients can call public methods
             return GameplayService.this;
         }
-
-        public void setPlayer (Player player) {
-            GameplayService.this.setPlayer(player);
-        }
-
-        public Player getPlayer() {
-            return GameplayService.this.getPlayer();
-        }
-
     }
 
 }
