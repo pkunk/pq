@@ -64,6 +64,10 @@ public class Equips extends ArrayList<String> {
     }
 
     public static Equips loadEquips(List<String> strings) {
-        return new Equips(strings);
+        Equips loaded = new Equips(strings);
+        while (loaded.size() < EQUIP_NUM) {
+            loaded.add("");
+        }
+        return loaded;
     }
 }

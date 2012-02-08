@@ -66,7 +66,7 @@ public class Traits {
                 traits.name = entry[1];
             } else if ("race".equals(entry[0])) {
                 traits.race = entry[1];
-            } else if ("name".equals(entry[0])) {
+            } else if ("role".equals(entry[0])) {
                 traits.role = entry[1];
             } else if ("level".equals(entry[0])) {
                 traits.level = Integer.decode(entry[1]);

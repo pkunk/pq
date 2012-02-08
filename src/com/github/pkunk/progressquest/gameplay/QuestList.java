@@ -28,7 +28,9 @@ public class QuestList extends LinkedList<String> {
     }
 
     public static QuestList loadQuestList(List<String> strings) {
-        return new QuestList(strings);
+        QuestList loaded = new QuestList(strings);
+        loaded.remove("");
+        return loaded;
     }
 
 }

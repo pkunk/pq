@@ -42,6 +42,9 @@ public class SpellBook extends LinkedHashMap<String, Roman> {
     public static SpellBook loadSpellBook(List<String> strings) {
         SpellBook spellBook = new SpellBook();
         for (String s : strings) {
+            if (s.length() == 0) {
+                continue;
+            }
             String[] entry = s.split(Vfs.SEPARATOR);
             spellBook.put(entry[0], new Roman(Integer.decode(entry[1])));
         }

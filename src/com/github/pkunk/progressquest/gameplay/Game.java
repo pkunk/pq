@@ -77,7 +77,7 @@ public class Game {
             } else if ("bestStat".equals(entry[0])) {
                 game.bestStat = entry[1];
             } else if ("bestSpell".equals(entry[0])) {
-                game.bestSpell = entry[1];
+                game.bestSpell = entry.length == 1 ? "" : entry[1];
             } else if ("bestEquip".equals(entry[0])) {
                 game.bestEquip = entry[1];
             } else if ("act".equals(entry[0])) {
@@ -85,9 +85,9 @@ public class Game {
             } else if ("bestPlot".equals(entry[0])) {
                 game.bestPlot = entry[1];
             } else if ("bestQuest".equals(entry[0])) {
-                game.bestQuest = entry[1];
+                game.bestQuest = entry.length == 1 ? "" : entry[1];
             } else if ("questMonster".equals(entry[0])) {
-                game.questMonster = Monster.loadMonster(entry[1]);
+                game.questMonster = entry.length == 1 ? null : Monster.loadMonster(entry[1]);
             } else if ("questMonsterIndex".equals(entry[0])) {
                 game.questMonsterIndex = Integer.decode(entry[1]);
             } else if ("plotTask".equals(entry[0])) {
