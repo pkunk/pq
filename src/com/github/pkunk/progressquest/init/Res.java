@@ -647,48 +647,48 @@ public class Res {
     ));
 
     public static  final ResList<RaceClass> RACES = new ResList<RaceClass>(Arrays.asList(
-            new RaceClass("Half Orc",               new Stats(new int[] {0,0,0,0,0,0,1,0})), //HP Max
-            new RaceClass("Half Man",               new Stats(new int[] {0,0,0,0,0,1,0,0})), //CHA
-            new RaceClass("Half Halfling",          new Stats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Double Hobbit",          new Stats(new int[] {1,0,0,0,0,0,0,0})), //STR
-            new RaceClass("Hob-Hobbit",             new Stats(new int[] {0,1,1,0,0,0,0,0})), //DEX,CON
-            new RaceClass("Low Elf",                new Stats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Dung Elf",               new Stats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Talking Pony",           new Stats(new int[] {0,0,0,1,0,0,0,1})), //MP Max,INT
-            new RaceClass("Gyrognome",              new Stats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Lesser Dwarf",           new Stats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Crested Dwarf",          new Stats(new int[] {0,0,0,0,0,1,0,0})), //CHA
-            new RaceClass("Eel Man",                new Stats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Panda Man",              new Stats(new int[] {1,1,0,0,0,0,0,0})), //CON,STR
-            new RaceClass("Trans-Kobold",           new Stats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Enchanted Motorcycle",   new Stats(new int[] {0,0,0,0,0,0,0,1})), //MP Max
-            new RaceClass("Will o' the Wisp",       new Stats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Battle-Finch",           new Stats(new int[] {0,0,1,1,0,0,0,0})), //DEX,INT
-            new RaceClass("Double Wookiee",         new Stats(new int[] {1,0,0,0,0,0,0,0})), //STR
-            new RaceClass("Skraeling",              new Stats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Demicanadian",           new Stats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Land Squid",             new Stats(new int[] {1,0,0,0,0,0,1,0}))  //STR,HP Max
+            new RaceClass("Half Orc",               Stats.newStats(new int[] {0,0,0,0,0,0,1,0})), //HP Max
+            new RaceClass("Half Man",               Stats.newStats(new int[] {0,0,0,0,0,1,0,0})), //CHA
+            new RaceClass("Half Halfling",          Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
+            new RaceClass("Double Hobbit",          Stats.newStats(new int[] {1,0,0,0,0,0,0,0})), //STR
+            new RaceClass("Hob-Hobbit",             Stats.newStats(new int[] {0,1,1,0,0,0,0,0})), //DEX,CON
+            new RaceClass("Low Elf",                Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
+            new RaceClass("Dung Elf",               Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
+            new RaceClass("Talking Pony",           Stats.newStats(new int[] {0,0,0,1,0,0,0,1})), //MP Max,INT
+            new RaceClass("Gyrognome",              Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
+            new RaceClass("Lesser Dwarf",           Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
+            new RaceClass("Crested Dwarf",          Stats.newStats(new int[] {0,0,0,0,0,1,0,0})), //CHA
+            new RaceClass("Eel Man",                Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
+            new RaceClass("Panda Man",              Stats.newStats(new int[] {1,1,0,0,0,0,0,0})), //CON,STR
+            new RaceClass("Trans-Kobold",           Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
+            new RaceClass("Enchanted Motorcycle",   Stats.newStats(new int[] {0,0,0,0,0,0,0,1})), //MP Max
+            new RaceClass("Will o' the Wisp",       Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
+            new RaceClass("Battle-Finch",           Stats.newStats(new int[] {0,0,1,1,0,0,0,0})), //DEX,INT
+            new RaceClass("Double Wookiee",         Stats.newStats(new int[] {1,0,0,0,0,0,0,0})), //STR
+            new RaceClass("Skraeling",              Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
+            new RaceClass("Demicanadian",           Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
+            new RaceClass("Land Squid",             Stats.newStats(new int[] {1,0,0,0,0,0,1,0}))  //STR,HP Max
     ));
 
     public static  final ResList<RaceClass> KLASSES = new ResList<RaceClass>(Arrays.asList(
-            new RaceClass("Ur-Paladin",             new Stats(new int[] {0,1,0,0,1,0,0,0})),    //WIS,CON
-            new RaceClass("Voodoo Princess",        new Stats(new int[] {0,0,0,1,0,1,0,0})),    //INT,CHA
-            new RaceClass("Robot Monk",             new Stats(new int[] {1,0,0,0,0,0,0,0})),    //STR
-            new RaceClass("Mu-Fu Monk",             new Stats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Mage Illusioner",        new Stats(new int[] {0,0,0,1,0,0,0,1})),    //INT,MP Max
-            new RaceClass("Shiv-Knight",            new Stats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Inner Mason",            new Stats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Fighter/Organist",       new Stats(new int[] {1,0,0,0,0,1,0,0})),    //CHA,STR
-            new RaceClass("Puma Burgular",          new Stats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Runeloremaster",         new Stats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Hunter Strangler",       new Stats(new int[] {0,0,1,1,0,0,0,0})),    //DEX,INT
-            new RaceClass("Battle-Felon",           new Stats(new int[] {1,0,0,0,0,0,0,0})),    //STR
-            new RaceClass("Tickle-Mimic",           new Stats(new int[] {0,0,0,1,1,0,0,0})),    //WIS,INT
-            new RaceClass("Slow Poisoner",          new Stats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Bastard Lunatic",        new Stats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Lowling",                new Stats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Birdrider",              new Stats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Vermineer",              new Stats(new int[] {0,0,0,1,0,0,0,0}))     //INT
+            new RaceClass("Ur-Paladin",             Stats.newStats(new int[] {0,1,0,0,1,0,0,0})),    //WIS,CON
+            new RaceClass("Voodoo Princess",        Stats.newStats(new int[] {0,0,0,1,0,1,0,0})),    //INT,CHA
+            new RaceClass("Robot Monk",             Stats.newStats(new int[] {1,0,0,0,0,0,0,0})),    //STR
+            new RaceClass("Mu-Fu Monk",             Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
+            new RaceClass("Mage Illusioner",        Stats.newStats(new int[] {0,0,0,1,0,0,0,1})),    //INT,MP Max
+            new RaceClass("Shiv-Knight",            Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
+            new RaceClass("Inner Mason",            Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
+            new RaceClass("Fighter/Organist",       Stats.newStats(new int[] {1,0,0,0,0,1,0,0})),    //CHA,STR
+            new RaceClass("Puma Burgular",          Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
+            new RaceClass("Runeloremaster",         Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
+            new RaceClass("Hunter Strangler",       Stats.newStats(new int[] {0,0,1,1,0,0,0,0})),    //DEX,INT
+            new RaceClass("Battle-Felon",           Stats.newStats(new int[] {1,0,0,0,0,0,0,0})),    //STR
+            new RaceClass("Tickle-Mimic",           Stats.newStats(new int[] {0,0,0,1,1,0,0,0})),    //WIS,INT
+            new RaceClass("Slow Poisoner",          Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
+            new RaceClass("Bastard Lunatic",        Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
+            new RaceClass("Lowling",                Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
+            new RaceClass("Birdrider",              Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
+            new RaceClass("Vermineer",              Stats.newStats(new int[] {0,0,0,1,0,0,0,0}))     //INT
     ));
 
 }

@@ -33,14 +33,20 @@ public class Stats extends ArrayList<Integer> {
 
     public static final int STATS_NUM = label.length;
 
-    public Stats(int[] stats) {
-        super(STATS_NUM);
-        if (STATS_NUM != stats.length) {
+    private Stats(int capacity) {
+        super(capacity);
+    }
+
+    public static Stats newStats(int[] statsArray) {
+        if (STATS_NUM != statsArray.length) {
             throw new IllegalArgumentException("Number of stats is wrong");
         }
+
+        Stats stats = new Stats(STATS_NUM);
         for (int i=0; i< STATS_NUM; i++) {
-            add(stats[i]);
+            stats.add(statsArray[i]);
         }
+        return stats;
     }
 
     public void inc(int key, int value) {
@@ -59,7 +65,7 @@ public class Stats extends ArrayList<Integer> {
             stats[i] = 1;
         }
 
-        return new Stats(stats);
+        return newStats(stats);
     }
 
     public List<String> saveStats() {
@@ -73,8 +79,8 @@ public class Stats extends ArrayList<Integer> {
     public static Stats loadStats(List<String> strings) {
         int[] array = new int[strings.size()];
         for (int i=0; i<array.length; i++) {
-            array[i] = Integer.getInteger(strings.get(i));
+            array[i] = Integer.decode(strings.get(i));
         }
-        return new Stats(array);
+        return newStats(array);
     }
 }
