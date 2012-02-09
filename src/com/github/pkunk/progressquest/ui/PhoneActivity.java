@@ -43,7 +43,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pqphone);
+        setContentView(R.layout.ph_gameplay);
 
         setupTabHost();
 //        tabHost = getTabHost();
