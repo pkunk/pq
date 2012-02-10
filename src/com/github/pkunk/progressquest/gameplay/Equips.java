@@ -15,6 +15,8 @@ public class Equips extends ArrayList<String> {
     public static final int WEAPON  = 0;
     public static final int SHIELD  = 1;
 
+    public static final String STARTING_WEAPON = "Sharp Rock";
+
     public static final String[] label = new String[] {
             "Weapon",
             "Shield",
@@ -44,6 +46,9 @@ public class Equips extends ArrayList<String> {
         for (int i=0; i< EQUIP_NUM; i++) {
             equips.add("");
         }
+
+        equips.set(WEAPON, STARTING_WEAPON);
+
         return equips;
     }
 

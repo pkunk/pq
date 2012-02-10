@@ -34,7 +34,7 @@ public class Game {
         game.tasks = 0;
         game.bestStat = null;
         game.bestSpell = "";
-        game.bestEquip = "Sharp Rock";
+        game.bestEquip = Equips.STARTING_WEAPON;
         game.act = 0;
         game.bestPlot = "Prologue";
         game.bestQuest = "";
