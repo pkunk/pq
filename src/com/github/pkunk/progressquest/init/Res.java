@@ -647,48 +647,48 @@ public class Res {
     ));
 
     public static  final ResList<RaceClass> RACES = new ResList<RaceClass>(Arrays.asList(
-            new RaceClass("Half Orc",               Stats.newStats(new int[] {0,0,0,0,0,0,1,0})), //HP Max
-            new RaceClass("Half Man",               Stats.newStats(new int[] {0,0,0,0,0,1,0,0})), //CHA
-            new RaceClass("Half Halfling",          Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Double Hobbit",          Stats.newStats(new int[] {1,0,0,0,0,0,0,0})), //STR
-            new RaceClass("Hob-Hobbit",             Stats.newStats(new int[] {0,1,1,0,0,0,0,0})), //DEX,CON
-            new RaceClass("Low Elf",                Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Dung Elf",               Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Talking Pony",           Stats.newStats(new int[] {0,0,0,1,0,0,0,1})), //MP Max,INT
-            new RaceClass("Gyrognome",              Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Lesser Dwarf",           Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Crested Dwarf",          Stats.newStats(new int[] {0,0,0,0,0,1,0,0})), //CHA
-            new RaceClass("Eel Man",                Stats.newStats(new int[] {0,0,1,0,0,0,0,0})), //DEX
-            new RaceClass("Panda Man",              Stats.newStats(new int[] {1,1,0,0,0,0,0,0})), //CON,STR
-            new RaceClass("Trans-Kobold",           Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Enchanted Motorcycle",   Stats.newStats(new int[] {0,0,0,0,0,0,0,1})), //MP Max
-            new RaceClass("Will o' the Wisp",       Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Battle-Finch",           Stats.newStats(new int[] {0,0,1,1,0,0,0,0})), //DEX,INT
-            new RaceClass("Double Wookiee",         Stats.newStats(new int[] {1,0,0,0,0,0,0,0})), //STR
-            new RaceClass("Skraeling",              Stats.newStats(new int[] {0,0,0,0,1,0,0,0})), //WIS
-            new RaceClass("Demicanadian",           Stats.newStats(new int[] {0,1,0,0,0,0,0,0})), //CON
-            new RaceClass("Land Squid",             Stats.newStats(new int[] {1,0,0,0,0,0,1,0}))  //STR,HP Max
+            new RaceClass("Half Orc",               Stats.newBonuses(Stats.HP_MAX)),
+            new RaceClass("Half Man",               Stats.newBonuses(Stats.CHA)),
+            new RaceClass("Half Halfling",          Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Double Hobbit",          Stats.newBonuses(Stats.STR)),
+            new RaceClass("Hob-Hobbit",             Stats.newBonuses(Stats.DEX, Stats.CON)),
+            new RaceClass("Low Elf",                Stats.newBonuses(Stats.CON)),
+            new RaceClass("Dung Elf",               Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Talking Pony",           Stats.newBonuses(Stats.MP_MAX, Stats.INT)),
+            new RaceClass("Gyrognome",              Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Lesser Dwarf",           Stats.newBonuses(Stats.CON)),
+            new RaceClass("Crested Dwarf",          Stats.newBonuses(Stats.CHA)),
+            new RaceClass("Eel Man",                Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Panda Man",              Stats.newBonuses(Stats.CON, Stats.STR)),
+            new RaceClass("Trans-Kobold",           Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Enchanted Motorcycle",   Stats.newBonuses(Stats.MP_MAX)),
+            new RaceClass("Will o' the Wisp",       Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Battle-Finch",           Stats.newBonuses(Stats.DEX, Stats.INT)),
+            new RaceClass("Double Wookiee",         Stats.newBonuses(Stats.STR)),
+            new RaceClass("Skraeling",              Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Demicanadian",           Stats.newBonuses(Stats.CON)),
+            new RaceClass("Land Squid",             Stats.newBonuses(Stats.STR, Stats.HP_MAX))
     ));
 
     public static  final ResList<RaceClass> KLASSES = new ResList<RaceClass>(Arrays.asList(
-            new RaceClass("Ur-Paladin",             Stats.newStats(new int[] {0,1,0,0,1,0,0,0})),    //WIS,CON
-            new RaceClass("Voodoo Princess",        Stats.newStats(new int[] {0,0,0,1,0,1,0,0})),    //INT,CHA
-            new RaceClass("Robot Monk",             Stats.newStats(new int[] {1,0,0,0,0,0,0,0})),    //STR
-            new RaceClass("Mu-Fu Monk",             Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Mage Illusioner",        Stats.newStats(new int[] {0,0,0,1,0,0,0,1})),    //INT,MP Max
-            new RaceClass("Shiv-Knight",            Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Inner Mason",            Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Fighter/Organist",       Stats.newStats(new int[] {1,0,0,0,0,1,0,0})),    //CHA,STR
-            new RaceClass("Puma Burgular",          Stats.newStats(new int[] {0,0,1,0,0,0,0,0})),    //DEX
-            new RaceClass("Runeloremaster",         Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Hunter Strangler",       Stats.newStats(new int[] {0,0,1,1,0,0,0,0})),    //DEX,INT
-            new RaceClass("Battle-Felon",           Stats.newStats(new int[] {1,0,0,0,0,0,0,0})),    //STR
-            new RaceClass("Tickle-Mimic",           Stats.newStats(new int[] {0,0,0,1,1,0,0,0})),    //WIS,INT
-            new RaceClass("Slow Poisoner",          Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Bastard Lunatic",        Stats.newStats(new int[] {0,1,0,0,0,0,0,0})),    //CON
-            new RaceClass("Lowling",                Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Birdrider",              Stats.newStats(new int[] {0,0,0,0,1,0,0,0})),    //WIS
-            new RaceClass("Vermineer",              Stats.newStats(new int[] {0,0,0,1,0,0,0,0}))     //INT
+            new RaceClass("Ur-Paladin",             Stats.newBonuses(Stats.WIS, Stats.CON)),
+            new RaceClass("Voodoo Princess",        Stats.newBonuses(Stats.INT, Stats.CHA)),
+            new RaceClass("Robot Monk",             Stats.newBonuses(Stats.STR)),
+            new RaceClass("Mu-Fu Monk",             Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Mage Illusioner",        Stats.newBonuses(Stats.INT, Stats.MP_MAX)),
+            new RaceClass("Shiv-Knight",            Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Inner Mason",            Stats.newBonuses(Stats.CON)),
+            new RaceClass("Fighter/Organist",       Stats.newBonuses(Stats.CHA, Stats.STR)),
+            new RaceClass("Puma Burgular",          Stats.newBonuses(Stats.DEX)),
+            new RaceClass("Runeloremaster",         Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Hunter Strangler",       Stats.newBonuses(Stats.DEX, Stats.INT)),
+            new RaceClass("Battle-Felon",           Stats.newBonuses(Stats.STR)),
+            new RaceClass("Tickle-Mimic",           Stats.newBonuses(Stats.WIS, Stats.INT)),
+            new RaceClass("Slow Poisoner",          Stats.newBonuses(Stats.CON)),
+            new RaceClass("Bastard Lunatic",        Stats.newBonuses(Stats.CON)),
+            new RaceClass("Lowling",                Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Birdrider",              Stats.newBonuses(Stats.WIS)),
+            new RaceClass("Vermineer",              Stats.newBonuses(Stats.INT))
     ));
 
 }
