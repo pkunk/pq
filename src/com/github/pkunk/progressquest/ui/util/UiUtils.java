@@ -2,7 +2,9 @@ package com.github.pkunk.progressquest.ui.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.widget.TextView;
 import com.github.pkunk.progressquest.R;
@@ -14,7 +16,7 @@ import com.github.pkunk.progressquest.ui.view.TextProgressBar;
  */
 public class UiUtils {
 
-    public static TableRow headerRow(Context context, String... titles) {
+    public static TableRow getHeaderRow(Context context, String... titles) {
         TableRow row = new TableRow(context);
         for (String title : titles) {
             TextView textView = new TextView(row.getContext());
@@ -25,7 +27,7 @@ public class UiUtils {
         return row;
     }
 
-    public static TableRow tableRow(Context context, String... text) {
+    public static TableRow getTableRow(Context context, String... text) {
         TableRow row = new TableRow(context);
         for (String title : text) {
             TextView textView = new TextView(row.getContext());
@@ -35,11 +37,11 @@ public class UiUtils {
         return row;
     }
 
-    public static TableRow checkedRow(Context context, boolean  checked, String text) {
+    public static TableRow getCheckedRow(Context context, boolean checked, String text) {
         TableRow row = new TableRow(context);
 
         CheckBox checkBox = new CheckBox(context);
-        checkBox.setButtonDrawable(R.drawable.pqcheckbox);
+        checkBox.setButtonDrawable(R.drawable.pq_checkbox);
         checkBox.setClickable(false);
         checkBox.setChecked(checked);
         row.addView(checkBox);
@@ -49,6 +51,14 @@ public class UiUtils {
         row.addView(textView);
 
         return row;
+    }
+
+    public static RadioButton getRadioButton(Context context, String text) {
+        RadioButton radioButton = new RadioButton(context);
+        radioButton.setButtonDrawable(R.drawable.pq_radio);
+        radioButton.setText(text);
+        radioButton.setTextColor(Color.BLACK);
+        return radioButton;
     }
 
     public static void updateTextProgressBar(Activity activity, int resId, int current, int max, String text) {

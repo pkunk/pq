@@ -16,6 +16,7 @@ import com.github.pkunk.progressquest.gameplay.RaceClass;
 import com.github.pkunk.progressquest.gameplay.Stats;
 import com.github.pkunk.progressquest.gameplay.World;
 import com.github.pkunk.progressquest.init.Res;
+import com.github.pkunk.progressquest.ui.util.UiUtils;
 import com.github.pkunk.progressquest.ui.view.StatView;
 import com.github.pkunk.progressquest.util.PqUtils;
 
@@ -30,7 +31,7 @@ public class PhoneNewPlayerActivity extends Activity {
 
     private static final int VIEWS_NUM = 4;
 
-    private static final int[] TOTAL_COLORS = new int[] {Color.GRAY, 0xffe7e7e7, Color.WHITE, Color.YELLOW, Color.RED};
+    private static final int[] TOTAL_COLORS = new int[] {Color.GRAY, 0xFFE7E7E7, Color.WHITE, Color.YELLOW, Color.RED};
 
     private int currentView;
     private NewPlayerModel m;
@@ -74,8 +75,7 @@ public class PhoneNewPlayerActivity extends Activity {
         RadioButtonRaceListener raceListener = new RadioButtonRaceListener();
         List<View> raceViewList = new ArrayList<View>(Res.RACES.size());
         for (RaceClass race : Res.RACES) {
-            RadioButton radioButton = new RadioButton(this);
-            radioButton.setText(race.getName());
+            RadioButton radioButton = UiUtils.getRadioButton(this, race.getName());
             m.addRace(race);
             radioButton.setOnClickListener(raceListener);
             raceGroup.addView(radioButton);
@@ -85,8 +85,7 @@ public class PhoneNewPlayerActivity extends Activity {
         RadioButtonRoleListener roleListener = new RadioButtonRoleListener();
         List<View> roleViewList = new ArrayList<View>(Res.KLASSES.size());
         for (RaceClass role : Res.KLASSES) {
-            RadioButton radioButton = new RadioButton(this);
-            radioButton.setText(role.getName());
+            RadioButton radioButton = UiUtils.getRadioButton(this, role.getName());
             m.addRole(role);
             radioButton.setOnClickListener(roleListener);
             roleGroup.addView(radioButton);

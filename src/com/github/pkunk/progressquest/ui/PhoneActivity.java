@@ -231,17 +231,17 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             traitsTable.removeAllViews();
 
             Traits traits = player.getTraits();
-            TableRow headerTraits = UiUtils.headerRow(traitsTable.getContext(), "Trait", "Value");
+            TableRow headerTraits = UiUtils.getHeaderRow(traitsTable.getContext(), "Trait", "Value");
             traitsTable.addView(headerTraits);
-            TableRow nameRow = UiUtils.tableRow(traitsTable.getContext(), "Name", traits.getName());
+            TableRow nameRow = UiUtils.getTableRow(traitsTable.getContext(), "Name", traits.getName());
             traitsTable.addView(nameRow);
-            TableRow raceRow = UiUtils.tableRow(traitsTable.getContext(), "Race", traits.getRace());
+            TableRow raceRow = UiUtils.getTableRow(traitsTable.getContext(), "Race", traits.getRace());
             traitsTable.addView(raceRow);
-            TableRow classRow = UiUtils.tableRow(traitsTable.getContext(), "Class", traits.getRole());
+            TableRow classRow = UiUtils.getTableRow(traitsTable.getContext(), "Class", traits.getRole());
             traitsTable.addView(classRow);
-            TableRow levelRow = UiUtils.tableRow(traitsTable.getContext(), "Level", String.valueOf(traits.getLevel()));
+            TableRow levelRow = UiUtils.getTableRow(traitsTable.getContext(), "Level", String.valueOf(traits.getLevel()));
             traitsTable.addView(levelRow);
-            TableRow emptyRow = UiUtils.tableRow(traitsTable.getContext(), "", "");
+            TableRow emptyRow = UiUtils.getTableRow(traitsTable.getContext(), "", "");
             traitsTable.addView(emptyRow);
         }
 
@@ -253,12 +253,12 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             TableLayout statsTable = (TableLayout)findViewById(R.id.ph_stats_table);
             statsTable.removeAllViews();
 
-            TableRow headerStats = UiUtils.headerRow(statsTable.getContext(), "Stat", "Value");
+            TableRow headerStats = UiUtils.getHeaderRow(statsTable.getContext(), "Stat", "Value");
             statsTable.addView(headerStats);
             for (int i=0; i<Stats.STATS_NUM; i++) {
                 String statName = Stats.label[i];
                 String statValue = String.valueOf(player.getStats().get(i));
-                TableRow row = UiUtils.tableRow(statsTable.getContext(), statName, statValue);
+                TableRow row = UiUtils.getTableRow(statsTable.getContext(), statName, statValue);
                 statsTable.addView(row);
             }
         }
@@ -279,11 +279,11 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             TableLayout spellTable = (TableLayout)findViewById(R.id.ph_spell_table);
             spellTable.removeAllViews();
 
-            TableRow header = UiUtils.headerRow(spellTable.getContext(), "Spell", "Level");
+            TableRow header = UiUtils.getHeaderRow(spellTable.getContext(), "Spell", "Level");
             spellTable.addView(header);
 
             for (Map.Entry<String,Roman> spell : player.getSpellBook().entrySet()) {
-                TableRow row = UiUtils.tableRow(spellTable.getContext(), spell.getKey(), spell.getValue().toString());
+                TableRow row = UiUtils.getTableRow(spellTable.getContext(), spell.getKey(), spell.getValue().toString());
                 spellTable.addView(row);
             }
         }
@@ -299,7 +299,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             for (int i=0; i<Equips.EQUIP_NUM; i++) {
                 String equipName = Equips.label[i];
                 String equipItem = player.getEquip().get(i);
-                TableRow row = UiUtils.tableRow(equipTable.getContext(), equipName, equipItem);
+                TableRow row = UiUtils.getTableRow(equipTable.getContext(), equipName, equipItem);
                 equipTable.addView(row);
             }
         }
@@ -312,11 +312,11 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             TableLayout itemsTable = (TableLayout)findViewById(R.id.ph_items_table);
             itemsTable.removeAllViews();
 
-            TableRow header = UiUtils.headerRow(itemsTable.getContext(), "Item", "Qty  ");
+            TableRow header = UiUtils.getHeaderRow(itemsTable.getContext(), "Item", "Qty  ");
             itemsTable.addView(header);
 
             for (Map.Entry<String,Integer> spell : player.getInventory().entrySet()) {
-                TableRow row = UiUtils.tableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
+                TableRow row = UiUtils.getTableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
                 itemsTable.addView(row);
             }
         }
@@ -341,7 +341,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             int lastIndex = plotList.size() - 1;
 
             for (int i=0; i<plotList.size(); i++) {
-                TableRow row = UiUtils.checkedRow(plotTable.getContext(), i!=lastIndex, plotList.get(i));
+                TableRow row = UiUtils.getCheckedRow(plotTable.getContext(), i != lastIndex, plotList.get(i));
                 plotTable.addView(row);
             }
         }
@@ -366,7 +366,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             int lastIndex = questsList.size() - 1;
 
             for (int i=0; i<questsList.size(); i++) {
-                TableRow row = UiUtils.checkedRow(questsTable.getContext(), i!=lastIndex, questsList.get(i));
+                TableRow row = UiUtils.getCheckedRow(questsTable.getContext(), i != lastIndex, questsList.get(i));
                 questsTable.addView(row);
             }
         }
