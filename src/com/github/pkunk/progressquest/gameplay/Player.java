@@ -15,6 +15,9 @@ import java.util.Map.Entry;
  * Date: 2011-12-24
  */
 public class Player {
+
+    private String playerId;
+
     private Traits traits;
     private Stats stats;
     private SpellBook spellbook;
@@ -46,6 +49,9 @@ public class Player {
 
     public static Player newPlayer(Traits traits, Stats stats) {
         Player player = new Player();
+
+        player.playerId = PqUtils.getTimestamp();
+
         player.game = Game.newGame();
         player.traits = traits;
         player.stats = stats;
@@ -511,6 +517,10 @@ public class Player {
 
     // Getters
 
+    public String getPlayerId() {
+        return playerId;
+    }
+
     public String getCurrentTask() {
         return currentTask;
     }
@@ -677,6 +687,7 @@ public class Player {
     private List<String> save() {
         List<String> result = new ArrayList<String>();
 
+        result.add("playerId" + Vfs.EQ + playerId);
         result.add("currentTask" + Vfs.EQ + currentTask);
         result.add("currentTaskTime" + Vfs.EQ + currentTaskTime);
         result.add("expProgressCurrent" + Vfs.EQ + expProgress.getCurrent());
@@ -729,6 +740,8 @@ public class Player {
                 encumProgressCurrent = Integer.decode(entry[1]);
             } else if ("encumProgressMax".equals(entry[0])) {
                 encumProgressMax = Integer.decode(entry[1]);
+            } else if ("playerId".equals(entry[0])) {
+                playerId = entry[1];
             }
         }
 

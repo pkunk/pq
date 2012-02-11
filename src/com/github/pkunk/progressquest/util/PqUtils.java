@@ -1,5 +1,9 @@
 package com.github.pkunk.progressquest.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * User: pkunk
  * Date: 2012-01-01
@@ -56,19 +60,21 @@ public class PqUtils {
         else return s + "s";
     }
 
-    /**
-     *
-     * @param s time in seconds
-     * @return human readable rough time
-     */
-    public static String roughTime(int s) {
-        if (s < 120) return s + " seconds";
-        else if (s < 60 * 120) return s/60 + " minutes";
-        else if (s < 60 * 60 * 48) return s/3600 + " hours";
-        else if (s < 60 * 60 * 24 * 60) return s/(3600*24) + " days";
-        else if (s < 60 * 60 * 24 * 30 * 24) return s/(3600*24* 30) +" months";
-        else return s/(3600*24*30*12) + " years";
+
+    public static String roughTime(int seconds) {
+        if (seconds < 120) return seconds + " seconds";
+        else if (seconds < 60 * 120) return seconds/60 + " minutes";
+        else if (seconds < 60 * 60 * 48) return seconds/3600 + " hours";
+        else if (seconds < 60 * 60 * 24 * 60) return seconds/(3600*24) + " days";
+        else if (seconds < 60 * 60 * 24 * 30 * 24) return seconds/(3600*24* 30) +" months";
+        else return seconds/(3600*24*30*12) + " years";
     }
-    
-    
+
+    public static String getTimestamp() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSSS");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(date);
+    }
+
 }
