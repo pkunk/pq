@@ -1,7 +1,5 @@
 package com.github.pkunk.progressquest.gameplay;
 
-import com.github.pkunk.progressquest.util.ResList;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,18 +48,6 @@ public class Equips extends ArrayList<String> {
         equips.set(WEAPON, STARTING_WEAPON);
 
         return equips;
-    }
-
-    public static EquipItem lPick(ResList<EquipItem> list, int goal) {
-        EquipItem result = list.pick();
-        for (int i = 1; i <= 5; i++) {
-            int best = result.getMod();
-            EquipItem s = list.pick();
-            int b1 = s.getMod();
-            if (Math.abs(goal - best) > Math.abs(goal - b1))
-                result = s;
-        }
-        return result;
     }
 
     public List<String> saveEquips() {

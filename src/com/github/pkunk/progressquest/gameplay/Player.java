@@ -224,7 +224,7 @@ public class Player {
             worse = Res.DEFENSE_BAD;
             stuff = (posn == Equips.SHIELD) ? Res.SHIELDS:  Res.ARMORS;
         }
-        EquipItem eq = Equips.lPick(stuff, traits.getLevel());
+        EquipItem eq = World.pickEquip(stuff, traits.getLevel());
         String name = eq.getName();
         int qual = eq.getMod();
         int plus = traits.getLevel() - qual;

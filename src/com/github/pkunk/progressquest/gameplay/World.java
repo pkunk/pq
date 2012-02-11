@@ -2,6 +2,7 @@ package com.github.pkunk.progressquest.gameplay;
 
 import com.github.pkunk.progressquest.init.Res;
 import com.github.pkunk.progressquest.util.PqUtils;
+import com.github.pkunk.progressquest.util.ResList;
 
 import java.util.Locale;
 
@@ -10,7 +11,7 @@ import java.util.Locale;
  * Date: 2012-01-08
  */
 public class World {
-    
+
     static class MonsterTask {
         MonsterTask(String description, int level) {
             this.description = description;
@@ -19,7 +20,7 @@ public class World {
 
         String description;
         int  level;
-    } 
+    }
 
     public static MonsterTask monsterTask(Game game, int level) {
         boolean definite = false;
@@ -35,11 +36,11 @@ public class World {
         int lev;
         if (PqUtils.odds(1, 25)) {
             // Use an NPC every once in a while
-            name = " " + Res.RACES.pick().getName();
+            name = Res.RACES.pick().getName();
             if (PqUtils.odds(1, 2)) {
-                name = "passing" + name + " " + Res.KLASSES.pick().getName();
+                name = "passing " + name + " " + Res.KLASSES.pick().getName();
             } else {
-                name = Res.TITLES.pickLow() + " " + generateName() + " the" + name;
+                name = Res.TITLES.pickLow() + " " + generateName() + " the " + name;
                 definite = true;
             }
             lev = level;
@@ -124,13 +125,13 @@ public class World {
             return prefix(new String[]{"Battle-","cursed ","Were-","undead ","demon "}, m, s, "");
     }
 
-    private static String generateName() {
+    public static String generateName() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i <= 5; i++) {
             result.append(Res.PARTS.get(i%3).pick());
         }
         String first =  result.substring(0,1).toUpperCase(Locale.US);
-        result.replace(0,1, first);
+        result.replace(0, 1, first);
         return result.toString();
     }
 
@@ -155,7 +156,7 @@ public class World {
     private static String prefix(String[] array, int m, String s, String sep) {
         if (sep == null) sep = " ";
         m = Math.abs(m);
-        if (m < 1 || m > array.length) return s;  // In case of screwups
+        if (m < 1 || m > array.length) return s;
         return array[m-1] + sep + s;
     }
 
@@ -169,5 +170,17 @@ public class World {
 
     public static String getBoringItem() {
         return Res.BORING_ITEMS.pick();
+    }
+
+    public static EquipItem pickEquip(ResList<EquipItem> list, int goal) {
+        EquipItem result = list.pick();
+        for (int i = 1; i <= 5; i++) {
+            int best = result.getMod();
+            EquipItem s = list.pick();
+            int b1 = s.getMod();
+            if (Math.abs(goal - best) > Math.abs(goal - b1))
+                result = s;
+        }
+        return result;
     }
 }
