@@ -68,6 +68,14 @@ public class Stats extends ArrayList<Integer> {
         return newStats(stats);
     }
 
+    public int getTotal() {
+        int total = 0;
+        for (int i=0; i<BASE_STATS_NUM; i++) {
+            total += get(i);
+        }
+        return total;
+    }
+
     public List<String> saveStats() {
         List<String> result = new ArrayList<String>(STATS_NUM);
         for (Integer stat : this) {

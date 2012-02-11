@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#CCCCCC"
+        >
+
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/ph_np_controls"
+            >
+
+        <LinearLayout
+                android:id="@+id/ph_np_name_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="    Name"
+                    />
+            <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:fillViewport="true"
+                    >
+                <EditText
+                        android:id="@+id/ph_np_name_field"
+                        android:singleLine="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/ph_np_random_name"
+                        />
+                <Button
+                        android:id="@+id/ph_np_random_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:text=" ? "
+                        />
+            </RelativeLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+                android:id="@+id/ph_np_race_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="    Race"
+                    />
+            <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:fillViewport="true"
+                    >
+                <RadioGroup
+                        android:id="@+id/ph_np_race_group"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/ph_np_role_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="    Class"
+                    />
+            <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:fillViewport="true"
+                    >
+                <RadioGroup
+                        android:id="@+id/ph_np_role_group"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/ph_np_roll_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="    Stats"
+                    />
+            <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:fillViewport="true"
+                    >
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                    <LinearLayout
+                            android:id="@+id/ph_np_roll_group"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            />
+                    <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="      "
+                            />
+                    <com.github.pkunk.progressquest.ui.view.StatView
+                            android:id="@+id/ph_np_total"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            />
+                    <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            >
+                        <TextView
+                                android:id="@+id/ph_np_roll_center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="      "
+                                />
+                        <Button
+                                android:id="@+id/ph_np_roll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/ph_np_roll_center"
+                                android:text="      Roll      "
+                                />
+                        <Button
+                                android:id="@+id/ph_np_unroll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/ph_np_roll_center"
+                                android:text="     Unroll     "
+                                />
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+            android:id="@+id/ph_np_controls"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+        <Button
+                android:id="@+id/ph_np_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        <Button
+                android:id="@+id/ph_np_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ph_np_next"
+                />
+    </RelativeLayout>
+</RelativeLayout>
