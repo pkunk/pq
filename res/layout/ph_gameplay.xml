@@ -347,9 +347,24 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 />
         <TextView
-                android:id="@+id/ph_player_status"
+                android:id="@+id/ph_player_status_1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text=""
+                />
+        <TextView
+                android:id="@+id/ph_player_status_2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text=""
+                />
+        <TextView
+                android:id="@+id/ph_player_status_3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text=""
                 />
     </LinearLayout>

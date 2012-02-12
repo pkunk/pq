@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.widget.TextView;
 import com.github.pkunk.progressquest.R;
+import com.github.pkunk.progressquest.gameplay.Player;
+import com.github.pkunk.progressquest.gameplay.Traits;
 import com.github.pkunk.progressquest.ui.view.TextProgressBar;
 
 /**
@@ -66,6 +68,31 @@ public class UiUtils {
         bar.setMax(max);
         bar.setProgress(current);
         bar.setText(text);
+    }
+
+    public static String getStatus1(Player player) {
+        Traits traits = player.getTraits();
+        StringBuilder statusText = new StringBuilder();
+        statusText.append(traits.getName()).append(" the ").append(traits.getRace());
+        statusText.append(" (").append(player.getBestPlot()).append(")");
+        return statusText.toString();
+    }
+
+    public static String getStatus2(Player player) {
+        Traits traits = player.getTraits();
+        StringBuilder statusText = new StringBuilder();
+        statusText.append("Level ").append(traits.getLevel()).append(" ").append(traits.getRole());
+        return statusText.toString();
+    }
+
+    public static String getStatus3(Player player) {
+        StringBuilder statusText = new StringBuilder();
+        statusText.append(player.getBestEquip()).append(" / ");
+        if (player.getBestSpell().length() > 0) {
+            statusText.append(player.getBestSpell()).append(" / ");
+        }
+        statusText.append(player.getBestStat());
+        return statusText.toString();
     }
 
 }

@@ -196,20 +196,14 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
         }
 
         private void updateStatusbar() {
-            TextView statusView = (TextView) findViewById(R.id.ph_player_status);
-            Traits traits = player.getTraits();
+            TextView status1View = (TextView) findViewById(R.id.ph_player_status_1);
+            status1View.setText(UiUtils.getStatus1(player));
 
-            StringBuilder statusText = new StringBuilder();
-            statusText.append(traits.getName()).append(" the ").append(traits.getRace());
-            statusText.append(" (").append(player.getBestPlot()).append(")");
-            statusText.append("\n");
-            statusText.append("Level ").append(traits.getLevel()).append(" ").append(traits.getRole());
-            statusText.append("\n");
-            statusText.append(player.getBestEquip()).append(" / ");
-            statusText.append(player.getBestSpell()).append(" / ");
-            statusText.append(player.getBestStat());
+            TextView status2View = (TextView) findViewById(R.id.ph_player_status_2);
+            status2View.setText(UiUtils.getStatus2(player));
 
-            statusView.setText(statusText.toString());
+            TextView status3View = (TextView) findViewById(R.id.ph_player_status_3);
+            status3View.setText(UiUtils.getStatus3(player));
         }
 
         private void updateTask() {

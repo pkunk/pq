@@ -2,6 +2,7 @@ package com.github.pkunk.progressquest.gameplay;
 
 import android.util.Log;
 import com.github.pkunk.progressquest.init.Res;
+import com.github.pkunk.progressquest.ui.util.UiUtils;
 import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.ResList;
 import com.github.pkunk.progressquest.util.Roman;
@@ -704,6 +705,11 @@ public class Player {
 
     private List<String> saveAnnotation() {
         List<String> result = new ArrayList<String>();
+
+        result.add("playerId" + Vfs.EQ + playerId);
+        result.add("status1" + Vfs.EQ + UiUtils.getStatus1(this));
+        result.add("status2" + Vfs.EQ + UiUtils.getStatus2(this));
+        result.add("status3" + Vfs.EQ + UiUtils.getStatus3(this));
 
         return result;
     }
