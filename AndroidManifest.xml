@@ -8,12 +8,6 @@
                   android:targetSdkVersion="10"
                 />
 
-        <activity android:name=".ui.TestActivity" android:icon="@drawable/icon">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
         <activity
                 android:name=".ui.PhoneActivity"
                 android:icon="@drawable/icon"
