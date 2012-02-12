@@ -31,8 +31,8 @@ import java.util.Map;
  * User: pkunk
  * Date: 2012-01-25
  */
-public class PhoneActivity extends Activity implements GameplayServiceListener {
-    private static final String TAG = PhoneActivity.class.getCanonicalName();
+public class PhoneGameplayActivity extends Activity implements GameplayServiceListener {
+    private static final String TAG = PhoneGameplayActivity.class.getCanonicalName();
 
     private GameplayService service;
     private volatile boolean isBound = false;
@@ -90,7 +90,7 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
         taskBarUpdater.cancel(true);
         // Unbind from the service
         if (isBound) {
-            PhoneActivity.this.service.removeGameplayListener(PhoneActivity.this);
+            PhoneGameplayActivity.this.service.removeGameplayListener(PhoneGameplayActivity.this);
             unbindService(connection);
             isBound = false;
         }
@@ -123,20 +123,20 @@ public class PhoneActivity extends Activity implements GameplayServiceListener {
             Log.d(TAG, "onServiceConnected");
 
             GameplayService.GameplayBinder binder = (GameplayService.GameplayBinder) service;
-            PhoneActivity.this.service = binder.getService();
+            PhoneGameplayActivity.this.service = binder.getService();
             isBound = true;
 
-            PhoneActivity.this.service.addGameplayListener(PhoneActivity.this);
-            Player player = PhoneActivity.this.service.getPlayer();
+            PhoneGameplayActivity.this.service.addGameplayListener(PhoneGameplayActivity.this);
+            Player player = PhoneGameplayActivity.this.service.getPlayer();
             if (player == null) {
                 try {
-                    Player savedPlayer = PhoneActivity.this.service.loadPlayer("Tester");
-                    PhoneActivity.this.service.setPlayer(savedPlayer);
+                    Player savedPlayer = PhoneGameplayActivity.this.service.loadPlayer("Tester");
+                    PhoneGameplayActivity.this.service.setPlayer(savedPlayer);
                 } catch (Exception e) {
                     Player newPlayer = createPlayer();
-                    PhoneActivity.this.service.setPlayer(newPlayer);
+                    PhoneGameplayActivity.this.service.setPlayer(newPlayer);
                 }
-                player = PhoneActivity.this.service.getPlayer();
+                player = PhoneGameplayActivity.this.service.getPlayer();
             }
 
             if (player != null) {
