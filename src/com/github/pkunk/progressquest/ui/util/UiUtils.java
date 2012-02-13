@@ -18,6 +18,8 @@ import com.github.pkunk.progressquest.ui.view.TextProgressBar;
  */
 public class UiUtils {
 
+    public static final int SILVER = 0xFFE7E7E7;
+
     public static TableRow getHeaderRow(Context context, String... titles) {
         TableRow row = new TableRow(context);
         for (String title : titles) {

@@ -1,10 +1,7 @@
 package com.github.pkunk.progressquest.ui;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
+import android.content.*;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -23,6 +20,7 @@ import com.github.pkunk.progressquest.ui.util.TaskBarUpdater;
 import com.github.pkunk.progressquest.ui.util.UiUtils;
 import com.github.pkunk.progressquest.util.PqUtils;
 import com.github.pkunk.progressquest.util.Roman;
+import com.github.pkunk.progressquest.util.Vfs;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +31,8 @@ import java.util.Map;
  */
 public class PhoneGameplayActivity extends Activity implements GameplayServiceListener {
     private static final String TAG = PhoneGameplayActivity.class.getCanonicalName();
+
+    private String playerId;
 
     private GameplayService service;
     private volatile boolean isBound = false;
@@ -76,6 +76,9 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
     @Override
     protected void onStart() {
         super.onStart();
+
+        playerId = getPlayerId();
+
         // Bind to GameplayService
         Intent intent = new Intent(this, GameplayService.class);
 //        startService(intent);   //todo: remove to let service die
@@ -105,6 +108,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         }
     }
 
+    private String getPlayerId() {
+        SharedPreferences settings = getSharedPreferences(Vfs.SETTINGS, Context.MODE_PRIVATE);
+        return settings.getString("playerId", "");
+    }
+
     private void updateUi(Player player, boolean force) {
         this.runOnUiThread(new UiUpdater(this, player, force));
     }
@@ -128,9 +136,9 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
 
             PhoneGameplayActivity.this.service.addGameplayListener(PhoneGameplayActivity.this);
             Player player = PhoneGameplayActivity.this.service.getPlayer();
-            if (player == null) {
+            if (player == null || !playerId.equals(player.getPlayerId())) {
                 try {
-                    Player savedPlayer = PhoneGameplayActivity.this.service.loadPlayer("Tester");
+                    Player savedPlayer = PhoneGameplayActivity.this.service.loadPlayer(playerId);
                     PhoneGameplayActivity.this.service.setPlayer(savedPlayer);
                 } catch (Exception e) {
                     Player newPlayer = createPlayer();

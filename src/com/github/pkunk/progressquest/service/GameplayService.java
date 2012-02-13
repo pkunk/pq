@@ -34,6 +34,7 @@ public class GameplayService extends Service {
 
     public void setPlayer(Player player) {
         synchronized (PLAYER_LOCK) {
+            savePlayer();
             this.player = player;
             handler.removeCallbacks(updateTask);
             handler.post(updateTask);
@@ -86,7 +87,7 @@ public class GameplayService extends Service {
     }
 
     private boolean checkToSave() {
-        return player.isTraitsUpdated() || player.isPlotUpdated() || player.isQuestsUpdated();
+        return player.isSaveGame();
     }
 
     private void savePlayer() {
@@ -95,7 +96,7 @@ public class GameplayService extends Service {
                 return;
             }
             try {
-                Vfs.writeToFile(this, player.getTraits().getName() + Vfs.ZIP_EXT, player.savePlayer());
+                Vfs.writeToFile(this, player.getPlayerId() + Vfs.ZIP_EXT, player.savePlayer());
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }

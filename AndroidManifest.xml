@@ -30,6 +30,17 @@
             </intent-filter>
         </activity>
 
+        <activity
+                android:name=".ui.PhoneRosterActivity"
+                android:configChanges="orientation"
+                android:icon="@drawable/icon"
+                android:theme="@style/Redmond"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".service.GameplayService" />
 
     </application>

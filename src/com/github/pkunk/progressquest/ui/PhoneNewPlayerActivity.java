@@ -31,7 +31,7 @@ public class PhoneNewPlayerActivity extends Activity {
 
     private static final int VIEWS_NUM = 4;
 
-    private static final int[] TOTAL_COLORS = new int[] {Color.GRAY, 0xFFE7E7E7, Color.WHITE, Color.YELLOW, Color.RED};
+    private static final int[] TOTAL_COLORS = new int[] {Color.GRAY, UiUtils.SILVER, Color.WHITE, Color.YELLOW, Color.RED};
 
     private int currentView;
     private NewPlayerModel m;

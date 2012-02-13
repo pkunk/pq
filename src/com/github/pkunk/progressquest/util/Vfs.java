@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -17,8 +19,11 @@ import java.util.zip.ZipOutputStream;
  * Date: 2012-01-31
  */
 public class Vfs {
+    private static final String TAG = Vfs.class.getCanonicalName();
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
+
+    public static final String SETTINGS = "Settings";
 
     public static final String EQ = "=";
     public static final String SEPARATOR = ";";
@@ -74,6 +79,46 @@ public class Vfs {
             }
         }
 
+        return result;
+    }
+
+    public static String[] getSaveFiles (Context context) {
+        File saveDir = context.getFilesDir();
+        String[] saveFiles = saveDir.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                if (filename.endsWith(ZIP_EXT)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return saveFiles;
+    }
+
+    public static Map<String, List<String>> readEntryFromFiles (Context context, String[] fileNames, String entry) {
+        Map<String, List<String>> result = new HashMap<String, List<String>>(fileNames.length);
+        File saveDir = context.getFilesDir();
+        for (String fileName : fileNames) {
+            try {
+                File file = new File(saveDir, fileName);
+                ZipFile zipFile = new ZipFile(file);
+                ZipEntry zipEntry = zipFile.getEntry(entry);
+                InputStream is = new BufferedInputStream(zipFile.getInputStream(zipEntry));
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int count;
+                while ((count = is.read(buffer)) != -1) {
+                    baos.write(buffer, 0, count);
+                }
+                List<String> entryData = fromByteArray(baos.toByteArray());
+                result.put(fileName, entryData);
+            } catch (IOException ioe) {
+                Log.e(TAG, ioe.getMessage());
+                ioe.printStackTrace();
+            }
+        }
         return result;
     }
 
