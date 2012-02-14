@@ -66,7 +66,7 @@ public class Player {
         player.currentTaskTime = 2000;
 
         player.expProgress = new ProgressCounter(player.levelUpTime());
-        player.plotProgress = new ProgressCounter(0);
+        player.plotProgress = new ProgressCounter(28); // initial task time + sum of plot tasks except last
         player.questProgress = new ProgressCounter(1);
         player.encumProgress = new ProgressCounter(0);
         player.recalculateEncum();
@@ -79,12 +79,6 @@ public class Player {
         player.queuePlot(new PlotTask("A shocking series of events leaves you alone and bewildered, but resolute", 6));
         player.queuePlot(new PlotTask("Drawing upon an unrealized reserve of determination, you set out on a long and dangerous journey", 4));
         player.queuePlot(new PlotTask("Loading", 2, true));
-
-        int plotTime = 0;
-        for (PlotTask plotTask : player.game.plotQueue) {
-            plotTime += plotTask.getTime();
-        }
-        player.plotProgress.reset(plotTime);
 
         player.setAllFlags();
 

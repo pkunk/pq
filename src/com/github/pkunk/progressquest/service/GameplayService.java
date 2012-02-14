@@ -37,7 +37,7 @@ public class GameplayService extends Service {
             savePlayer();
             this.player = player;
             handler.removeCallbacks(updateTask);
-            handler.post(updateTask);
+            handler.postDelayed(updateTask, player.getCurrentTaskTime());
         }
     }
 

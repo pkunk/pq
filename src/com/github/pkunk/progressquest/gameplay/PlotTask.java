@@ -41,7 +41,7 @@ public final class PlotTask {
         String[] strings = string.split(Vfs.SEPARATOR);
         String description = strings[0];
         int time = Integer.decode(strings[1]);
-        boolean isPlot = Boolean.getBoolean(strings[2]);
+        boolean isPlot = Boolean.parseBoolean(strings[2]);
         return new PlotTask(description, time, isPlot);
     }
 }
