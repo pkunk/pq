@@ -171,6 +171,8 @@
             android:id="@+id/ph_np_controls"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="4dip"
+            android:paddingBottom="4dip"
             android:layout_alignParentBottom="true"
             >
         <Button
