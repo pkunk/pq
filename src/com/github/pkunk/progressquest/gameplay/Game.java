@@ -56,7 +56,7 @@ public class Game {
         result.add("act" + Vfs.EQ + act);
         result.add("bestPlot" + Vfs.EQ + bestPlot);
         result.add("bestQuest" + Vfs.EQ + bestQuest);
-        result.add("questMonster" + Vfs.EQ + (questMonster == null ? "" : questMonster.toString()));
+        result.add("questMonster" + Vfs.EQ + (questMonster == null ? "" : questMonster.saveMonster()));
         result.add("questMonsterIndex" + Vfs.EQ + questMonsterIndex);
         for (PlotTask plotTask : plotQueue) {
             result.add("plotTask" + Vfs.EQ + plotTask.savePlot());
