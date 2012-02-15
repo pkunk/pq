@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import com.github.pkunk.progressquest.R;
+import com.github.pkunk.progressquest.gameplay.Player;
 import com.github.pkunk.progressquest.gameplay.RaceClass;
 import com.github.pkunk.progressquest.gameplay.Stats;
 import com.github.pkunk.progressquest.gameplay.World;
@@ -19,7 +21,9 @@ import com.github.pkunk.progressquest.init.Res;
 import com.github.pkunk.progressquest.ui.util.UiUtils;
 import com.github.pkunk.progressquest.ui.view.StatView;
 import com.github.pkunk.progressquest.util.PqUtils;
+import com.github.pkunk.progressquest.util.Vfs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +70,16 @@ public class PhoneNewPlayerActivity extends Activity {
     }
 
     private void createNewPlayer() {
-        //todo: work in progress
+        Player player = m.generatePlayer();
+        try {
+            Vfs.writeToFile(this, player.getPlayerId() + Vfs.ZIP_EXT, player.savePlayer());
+            Vfs.setPlayerId(this, player.getPlayerId());
+            Intent intent = new Intent(this, PhoneGameplayActivity.class);
+            startActivity(intent);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        finish();
     }
 
     private void populateView() {

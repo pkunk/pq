@@ -2,13 +2,13 @@ package com.github.pkunk.progressquest.ui.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.ui.util.UiUtils;
-import com.github.pkunk.progressquest.util.PqUtils;
 
 /**
  * User: pkunk
@@ -16,10 +16,8 @@ import com.github.pkunk.progressquest.util.PqUtils;
  */
 public class RosterEntryView extends RelativeLayout {
     
-    private static final String PLAY_ICON = "\u2694";
-    private static final String KILL_ICON = "\u2620";
+    // icons: #2694, #2620
 
-    private ImageView playButton;
     private ImageView killButton;
     private LinearLayout textLayout;
 
@@ -41,18 +39,10 @@ public class RosterEntryView extends RelativeLayout {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(h_margin, v_margin, h_margin, v_margin);
         setLayoutParams(layoutParams);
-
-        playButton = new ImageView(context);
-        playButton.setId(PqUtils.random(Integer.MAX_VALUE));
-        LayoutParams playParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-        playParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        playParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-        playButton.setLayoutParams(playParams);
-        playButton.setImageResource(R.drawable.swords);
-        addView(playButton);
+        setPadding(v_margin, v_margin, v_margin, v_margin);
 
         killButton = new ImageView(context);
-        killButton.setId(PqUtils.random(Integer.MAX_VALUE));
+        killButton.setId(UiUtils.generateViewId());
         LayoutParams killParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
         killParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
         killParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -62,7 +52,7 @@ public class RosterEntryView extends RelativeLayout {
 
         textLayout = new LinearLayout(context);
         LayoutParams textLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        textLayoutParams.addRule(RelativeLayout.RIGHT_OF, playButton.getId());
+        textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         textLayoutParams.addRule(RelativeLayout.LEFT_OF, killButton.getId());
         textLayout.setLayoutParams(textLayoutParams);
         textLayout.setOrientation(LinearLayout.VERTICAL);
@@ -96,6 +86,14 @@ public class RosterEntryView extends RelativeLayout {
         firstLayer.setText(status1);
         secondLayer.setText(status2);
         thirdLayer.setText(status3);
+    }
+
+    public View getPlayView() {
+        return textLayout;
+    }
+
+    public View getKillView() {
+        return killButton;
     }
 
 }

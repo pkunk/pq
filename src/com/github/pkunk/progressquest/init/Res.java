@@ -691,4 +691,11 @@ public class Res {
             new RaceClass("Vermineer",              Stats.newBonuses(Stats.INT))
     ));
 
+
+    public static  final ResList<String> MERITS = new ResList<String>(Arrays.asList(
+            "faithful",
+            "noble",
+            "loyal",
+            "brave"
+    ));
 }

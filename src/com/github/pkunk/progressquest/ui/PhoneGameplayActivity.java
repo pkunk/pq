@@ -77,7 +77,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
     protected void onStart() {
         super.onStart();
 
-        playerId = getPlayerId();
+        playerId = Vfs.getPlayerId(this);
 
         // Bind to GameplayService
         Intent intent = new Intent(this, GameplayService.class);
@@ -106,11 +106,6 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             Player player = service.getPlayer();
             updateUi(player, false);
         }
-    }
-
-    private String getPlayerId() {
-        SharedPreferences settings = getSharedPreferences(Vfs.SETTINGS, Context.MODE_PRIVATE);
-        return settings.getString("playerId", "");
     }
 
     private void updateUi(Player player, boolean force) {

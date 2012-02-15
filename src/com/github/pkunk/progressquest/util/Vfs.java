@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.*;
@@ -30,6 +31,19 @@ public class Vfs {
 
     public static final String ZIP_EXT = ".zip";
     public static final String BAK_EXT = ".bak";
+
+
+    public static void setPlayerId(Context context, String playerId) {
+        SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("playerId", playerId);
+        editor.commit();
+    }
+
+    public static String getPlayerId(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        return settings.getString("playerId", null);
+    }
 
     public static void writeToFile(Context context, String fileName, Map<String, List<String>> dataMap) throws IOException {
         OutputStream os = context.openFileOutput(fileName, Context.MODE_PRIVATE);
@@ -120,6 +134,12 @@ public class Vfs {
             }
         }
         return result;
+    }
+
+    public static boolean deleteFile(Context context, String fileName) {
+        File saveDir = context.getFilesDir();
+        File file = new File(saveDir, fileName);
+        return file.delete();
     }
 
     private static List<String> fromByteArray(byte[] array) {

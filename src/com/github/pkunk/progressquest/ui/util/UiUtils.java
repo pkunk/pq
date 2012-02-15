@@ -11,6 +11,7 @@ import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.gameplay.Player;
 import com.github.pkunk.progressquest.gameplay.Traits;
 import com.github.pkunk.progressquest.ui.view.TextProgressBar;
+import com.github.pkunk.progressquest.util.PqUtils;
 
 /**
  * User: pkunk
@@ -95,6 +96,10 @@ public class UiUtils {
         }
         statusText.append(player.getBestStat());
         return statusText.toString();
+    }
+
+    public static int generateViewId() {
+        return PqUtils.random(Integer.MAX_VALUE);
     }
 
 }

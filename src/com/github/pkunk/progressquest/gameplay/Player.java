@@ -704,6 +704,7 @@ public class Player {
         result.add("status1" + Vfs.EQ + UiUtils.getStatus1(this));
         result.add("status2" + Vfs.EQ + UiUtils.getStatus2(this));
         result.add("status3" + Vfs.EQ + UiUtils.getStatus3(this));
+        result.add("name" + Vfs.EQ + traits.getName());
 
         return result;
     }

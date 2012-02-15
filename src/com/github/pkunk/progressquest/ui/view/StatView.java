@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.github.pkunk.progressquest.util.PqUtils;
+import com.github.pkunk.progressquest.ui.util.UiUtils;
 
 /**
  * User: pkunk
@@ -34,7 +34,7 @@ public class StatView extends RelativeLayout {
 
     private void populateView(Context context) {
         spacer = new TextView(context);
-        spacer.setId(PqUtils.random(Integer.MAX_VALUE));
+        spacer.setId(UiUtils.generateViewId());
         LayoutParams spacerParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         spacerParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         spacer.setLayoutParams(spacerParams);
