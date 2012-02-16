@@ -275,7 +275,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
 
             TableRow header = UiUtils.getHeaderRow(spellTable.getContext(), "Spell", "Level");
             spellTable.addView(header);
-
+            //todo: improve ui
             for (Map.Entry<String,Roman> spell : player.getSpellBook().entrySet()) {
                 TableRow row = UiUtils.getTableRow(spellTable.getContext(), spell.getKey(), spell.getValue().toString());
                 spellTable.addView(row);
@@ -309,7 +309,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
 
             TableRow header = UiUtils.getHeaderRow(itemsTable.getContext(), "Item", "Qty  ");
             itemsTable.addView(header);
-
+            //todo: improve ui
             for (Map.Entry<String,Integer> spell : player.getInventory().entrySet()) {
                 TableRow row = UiUtils.getTableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
                 itemsTable.addView(row);

@@ -112,6 +112,7 @@ public class PhoneRosterActivity extends Activity {
     
     private void killPlayer() {
         String currentPlayerId = Vfs.getPlayerId(this);
+        //todo: move this to service
         if (playerIdToKill.equals(currentPlayerId)) {
             Vfs.setPlayerId(this, null);
         }
