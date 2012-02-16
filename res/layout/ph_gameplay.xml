@@ -111,6 +111,7 @@
                                 />
                     </LinearLayout>
                     <ScrollView
+                            android:id="@+id/ph_spell_scroll"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_below="@id/ph_tab_spell_header"
@@ -245,6 +246,7 @@
                             />
                     </LinearLayout>
                     <ScrollView
+                            android:id="@+id/ph_plot_scroll"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_below="@id/ph_tab_plot_header"
@@ -299,6 +301,7 @@
                                 />
                     </LinearLayout>
                     <ScrollView
+                            android:id="@+id/ph_quests_scroll"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_below="@id/ph_tab_quests_header"

@@ -5,10 +5,7 @@ import android.content.*;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.TabHost;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
 import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.gameplay.Equips;
 import com.github.pkunk.progressquest.gameplay.Player;
@@ -283,6 +280,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
                 TableRow row = UiUtils.getTableRow(spellTable.getContext(), spell.getKey(), spell.getValue().toString());
                 spellTable.addView(row);
             }
+            ((ScrollView)findViewById(R.id.ph_spell_scroll)).fullScroll(ScrollView.FOCUS_DOWN);
         }
 
         private void updateEquipment(boolean force) {
@@ -337,10 +335,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             List<String> plotList = player.getPlot();
             int lastIndex = plotList.size() - 1;
 
-            for (int i=0; i<plotList.size(); i++) {
+            for (int i = lastIndex; i >= 0; i--) {
                 TableRow row = UiUtils.getCheckedRow(plotTable.getContext(), i != lastIndex, plotList.get(i));
                 plotTable.addView(row);
             }
+            ((ScrollView)findViewById(R.id.ph_plot_scroll)).fullScroll(ScrollView.FOCUS_UP);
         }
 
         private void updatePlotBar() {
@@ -362,10 +361,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             List<String> questsList = player.getQuests();
             int lastIndex = questsList.size() - 1;
 
-            for (int i=0; i<questsList.size(); i++) {
+            for (int i = lastIndex; i >= 0; i--) {
                 TableRow row = UiUtils.getCheckedRow(questsTable.getContext(), i != lastIndex, questsList.get(i));
                 questsTable.addView(row);
             }
+            ((ScrollView)findViewById(R.id.ph_quests_scroll)).fullScroll(ScrollView.FOCUS_UP);
         }
 
         private void updateQuestsBar() {
