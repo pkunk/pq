@@ -1,7 +1,11 @@
 package com.github.pkunk.progressquest.ui;
 
 import android.app.Activity;
-import android.content.*;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -75,11 +79,18 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         super.onStart();
 
         playerId = Vfs.getPlayerId(this);
+        if (playerId == null) {
+            Intent intent = new Intent(PhoneGameplayActivity.this, PhoneRosterActivity.class);
+            startActivity(intent);
+            PhoneGameplayActivity.this.finish();
+            return;
+        }
 
         // Bind to GameplayService
         Intent intent = new Intent(this, GameplayService.class);
 //        startService(intent);   //todo: remove to let service die
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        configureWidget();
         taskBarUpdater = new TaskBarUpdater(this, R.id.ph_task_bar);
         taskBarUpdater.execute();
     }
@@ -103,6 +114,27 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             Player player = service.getPlayer();
             updateUi(player, false);
         }
+    }
+
+    private void configureWidget() {
+        int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            appWidgetId = extras.getInt(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+        if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            return;
+        }
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget);
+        Intent resultValue = new Intent();
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        setResult(RESULT_OK, resultValue);
+        sendBroadcast(resultValue);
     }
 
     private void updateUi(Player player, boolean force) {

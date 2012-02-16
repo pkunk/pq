@@ -1,13 +1,19 @@
 package com.github.pkunk.progressquest.service;
 
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.RemoteViews;
+import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.gameplay.Player;
+import com.github.pkunk.progressquest.ui.util.UiUtils;
 import com.github.pkunk.progressquest.util.Vfs;
+import com.github.pkunk.progressquest.widget.WidgetProvider;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -24,35 +30,35 @@ public class GameplayService extends Service {
 
     private static final Object PLAYER_LOCK = new Object();
 
-    Handler handler = new Handler();
+    private Handler mHandler = new Handler();
 
-    private IBinder binder = new GameplayBinder();
+    private IBinder mBinder = new GameplayBinder();
 
-    Set<GameplayServiceListener> listeners = new HashSet<GameplayServiceListener>();
+    Set<GameplayServiceListener> mListeners = new HashSet<GameplayServiceListener>();
 
-    private Player player = null;
+    private Player mPlayer = null;
 
     public void setPlayer(Player player) {
         synchronized (PLAYER_LOCK) {
             savePlayer();
-            this.player = player;
-            handler.removeCallbacks(updateTask);
-            handler.postDelayed(updateTask, player.getCurrentTaskTime());
+            this.mPlayer = player;
+            mHandler.removeCallbacks(updateTask);
+            mHandler.postDelayed(updateTask, player.getCurrentTaskTime());
         }
     }
 
     public Player getPlayer() {
-        return player;
+        return mPlayer;
     }
 
-    private void makeTurn () {
-        player.turn();
+    private void makeTurn() {
+        mPlayer.turn();
     }
 
     private Runnable updateTask = new Runnable() {
         public void run() {
             Log.d(TAG, "Turn");
-            if (player != null) {
+            if (mPlayer != null) {
 
                 synchronized (PLAYER_LOCK) {
                     makeTurn();
@@ -66,37 +72,53 @@ public class GameplayService extends Service {
                     }
                 }
 
-                handler.postDelayed(this, player.getCurrentTaskTime());
+                mHandler.postDelayed(this, mPlayer.getCurrentTaskTime());
                 notifyGameplayListeners();
+                updateWidget();
             }
         }
     };
+    
+    private void updateWidget() {
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.widget);
+        synchronized (PLAYER_LOCK) {
+            if (mPlayer.isSaveGame()) {
+                return;
+            }
+            view.setTextViewText(R.id.wg_status1, UiUtils.getStatus1(mPlayer));
+            view.setTextViewText(R.id.wg_status2, UiUtils.getStatus2(mPlayer));
+            view.setTextViewText(R.id.wg_status3, UiUtils.getStatus3(mPlayer));
+        }
+        ComponentName thisWidget = new ComponentName(this, WidgetProvider.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(this);
+        manager.updateAppWidget(thisWidget, view);
+    }
 
     public void addGameplayListener(GameplayServiceListener listener) {
-        listeners.add(listener);
+        mListeners.add(listener);
     }
 
     public void removeGameplayListener(GameplayServiceListener listener) {
-        listeners.remove(listener);
+        mListeners.remove(listener);
     }
 
     private void notifyGameplayListeners() {
-        for (GameplayServiceListener listener : listeners) {
+        for (GameplayServiceListener listener : mListeners) {
             listener.onGameplay();
         }
     }
 
     private boolean checkToSave() {
-        return player.isSaveGame();
+        return mPlayer.isSaveGame();
     }
 
     private void savePlayer() {
         synchronized (PLAYER_LOCK) {
-            if (player == null) {
+            if (mPlayer == null) {
                 return;
             }
             try {
-                Vfs.writeToFile(this, player.getPlayerId() + Vfs.ZIP_EXT, player.savePlayer());
+                Vfs.writeToFile(this, mPlayer.getPlayerId() + Vfs.ZIP_EXT, mPlayer.savePlayer());
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -114,12 +136,12 @@ public class GameplayService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return binder;
+        return mBinder;
     }
 
     @Override
     public void onDestroy() {
-        handler.removeCallbacks(updateTask);
+        mHandler.removeCallbacks(updateTask);
         savePlayer();
         super.onDestroy();
     }

@@ -15,6 +15,7 @@
                 >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,6 +43,14 @@
         </activity>
 
         <service android:name=".service.GameplayService" />
+
+        <receiver android:name="com.github.pkunk.progressquest.widget.WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/widget_info" />
+        </receiver>
 
     </application>
 </manifest>
