@@ -40,7 +40,7 @@ public final class PlotTask {
     public static PlotTask loadPlotTask(String string) {
         String[] strings = string.split(Vfs.SEPARATOR);
         String description = strings[0];
-        int time = Integer.decode(strings[1]);
+        int time = Integer.valueOf(strings[1]);
         boolean isPlot = Boolean.parseBoolean(strings[2]);
         return new PlotTask(description, time, isPlot);
     }

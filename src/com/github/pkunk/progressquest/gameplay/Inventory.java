@@ -51,7 +51,7 @@ public class Inventory extends LinkedHashMap<String, Integer> {
         Inventory inventory = new Inventory();
         for (String s : strings) {
             String[] entry = s.split(Vfs.SEPARATOR);
-            inventory.put(entry[0], Integer.decode(entry[1]));
+            inventory.put(entry[0], Integer.valueOf(entry[1]));
         }
         return inventory;
     }

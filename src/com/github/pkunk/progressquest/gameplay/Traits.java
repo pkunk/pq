@@ -69,7 +69,7 @@ public class Traits {
             } else if ("role".equals(entry[0])) {
                 traits.role = entry[1];
             } else if ("level".equals(entry[0])) {
-                traits.level = Integer.decode(entry[1]);
+                traits.level = Integer.valueOf(entry[1]);
             }
         }
         return traits;

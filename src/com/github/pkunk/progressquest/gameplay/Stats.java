@@ -87,7 +87,7 @@ public class Stats extends ArrayList<Integer> {
     public static Stats loadStats(List<String> strings) {
         int[] array = new int[strings.size()];
         for (int i=0; i<array.length; i++) {
-            array[i] = Integer.decode(strings.get(i));
+            array[i] = Integer.valueOf(strings.get(i));
         }
         return newStats(array);
     }

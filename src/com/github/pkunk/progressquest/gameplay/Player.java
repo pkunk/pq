@@ -724,23 +724,23 @@ public class Player {
             if ("currentTask".equals(entry[0])) {
                 currentTask = entry[1];
             } else if ("currentTaskTime".equals(entry[0])) {
-                currentTaskTime = Integer.decode(entry[1]);
+                currentTaskTime = Integer.valueOf(entry[1]);
             } else if ("expProgressCurrent".equals(entry[0])) {
-                expProgressCurrent = Integer.decode(entry[1]);
+                expProgressCurrent = Integer.valueOf(entry[1]);
             } else if ("expProgressMax".equals(entry[0])) {
-                expProgressMax = Integer.decode(entry[1]);
+                expProgressMax = Integer.valueOf(entry[1]);
             } else if ("plotProgressCurrent".equals(entry[0])) {
-                plotProgressCurrent = Integer.decode(entry[1]);
+                plotProgressCurrent = Integer.valueOf(entry[1]);
             } else if ("plotProgressMax".equals(entry[0])) {
-                plotProgressMax = Integer.decode(entry[1]);
+                plotProgressMax = Integer.valueOf(entry[1]);
             } else if ("questProgressCurrent".equals(entry[0])) {
-                questProgressCurrent = Integer.decode(entry[1]);
+                questProgressCurrent = Integer.valueOf(entry[1]);
             } else if ("questProgressMax".equals(entry[0])) {
-                questProgressMax = Integer.decode(entry[1]);
+                questProgressMax = Integer.valueOf(entry[1]);
             } else if ("encumProgressCurrent".equals(entry[0])) {
-                encumProgressCurrent = Integer.decode(entry[1]);
+                encumProgressCurrent = Integer.valueOf(entry[1]);
             } else if ("encumProgressMax".equals(entry[0])) {
-                encumProgressMax = Integer.decode(entry[1]);
+                encumProgressMax = Integer.valueOf(entry[1]);
             } else if ("playerId".equals(entry[0])) {
                 playerId = entry[1];
             }

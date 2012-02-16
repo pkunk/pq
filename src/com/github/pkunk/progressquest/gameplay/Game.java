@@ -73,7 +73,7 @@ public class Game {
             if ("task".equals(entry[0])) {
                 game.task = Task.loadTask(entry[1]);
             } else if ("tasks".equals(entry[0])) {
-                game.tasks = Integer.decode(entry[1]);
+                game.tasks = Integer.valueOf(entry[1]);
             } else if ("bestStat".equals(entry[0])) {
                 game.bestStat = entry[1];
             } else if ("bestSpell".equals(entry[0])) {
@@ -81,7 +81,7 @@ public class Game {
             } else if ("bestEquip".equals(entry[0])) {
                 game.bestEquip = entry[1];
             } else if ("act".equals(entry[0])) {
-                game.act = Integer.decode(entry[1]);
+                game.act = Integer.valueOf(entry[1]);
             } else if ("bestPlot".equals(entry[0])) {
                 game.bestPlot = entry[1];
             } else if ("bestQuest".equals(entry[0])) {
@@ -89,7 +89,7 @@ public class Game {
             } else if ("questMonster".equals(entry[0])) {
                 game.questMonster = entry.length == 1 ? null : Monster.loadMonster(entry[1]);
             } else if ("questMonsterIndex".equals(entry[0])) {
-                game.questMonsterIndex = Integer.decode(entry[1]);
+                game.questMonsterIndex = Integer.valueOf(entry[1]);
             } else if ("plotTask".equals(entry[0])) {
                 PlotTask plotTask = PlotTask.loadPlotTask(entry[1]);
                 game.plotQueue.add(plotTask);
