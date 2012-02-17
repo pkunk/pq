@@ -339,6 +339,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_alignParentBottom="true"
+            android:padding="1dp"
             >
         <TextView
                 android:id="@+id/ph_task_text"
