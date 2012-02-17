@@ -31,10 +31,15 @@ public class Inventory extends LinkedHashMap<String, Integer> {
         put(item, old + quantity);
     }
 
-    public String getLastItem() {
+    public String getFirstItem() {
         String result = null;
+        boolean gold = true;
         for (Entry<String,Integer> entry : this.entrySet()) {
             result = entry.getKey();
+            if (!gold) {
+                break;
+            }
+            gold = false;
         }
         return result;
     }

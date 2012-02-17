@@ -346,6 +346,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
                 TableRow row = UiUtils.getTableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
                 itemsTable.addView(row);
             }
+            if (player.isGoldUpdated()) {
+                ((ScrollView)findViewById(R.id.ph_items_scroll)).fullScroll(ScrollView.FOCUS_UP);
+            } else {
+                ((ScrollView)findViewById(R.id.ph_items_scroll)).fullScroll(ScrollView.FOCUS_DOWN);
+            }
         }
 
         private void updateEncumbranceBar() {

@@ -41,6 +41,7 @@ public class Player {
     private boolean isSpellsUpdated;
     private boolean isEquipUpdated;
     private boolean isItemsUpdated;
+    private boolean isGoldUpdated;
     private boolean isPlotUpdated;
     private boolean isQuestsUpdated;
     private boolean saveGame;
@@ -118,10 +119,11 @@ public class Player {
                 // buy some equipment
                 inventory.add(Inventory.GOLD,-equipPrice());
                 isItemsUpdated = true;
+                isGoldUpdated = true;
                 winEquip();
             } else if ((game.task.isMarket()) || (game.task.isSell())) {
                 if (game.task.isSell()) {
-                    String item = inventory.getLastItem();
+                    String item = inventory.getFirstItem();
                     int amt = inventory.get(item) * traits.getLevel();
                     if (item.contains(" of ")) {
                         amt *= (1+PqUtils.randomLow(10)) * (1+PqUtils.randomLow(traits.getLevel()));
@@ -130,10 +132,11 @@ public class Player {
                     inventory.add(Inventory.GOLD, amt);
                     recalculateEncum();
                     isItemsUpdated = true;
+                    isGoldUpdated = true;
                 }
                 if (inventory.size() > 1) {
 //                    Inventory.scrollToTop();
-                    String sellingItem = inventory.getLastItem();
+                    String sellingItem = inventory.getFirstItem();
                     task("Selling " + PqUtils.indefinite(sellingItem, inventory.get(sellingItem)),
                             1 * 1000);
                     game.task = Task.sellTask();
@@ -423,6 +426,7 @@ public class Player {
         isSpellsUpdated = false;
         isEquipUpdated = false;
         isItemsUpdated = false;
+        isGoldUpdated = false;
         isPlotUpdated = false;
         isQuestsUpdated = false;
         saveGame = false;
@@ -434,6 +438,7 @@ public class Player {
         isSpellsUpdated = true;
         isEquipUpdated = true;
         isItemsUpdated = true;
+        isGoldUpdated = true;
         isPlotUpdated = true;
         isQuestsUpdated = true;
         saveGame = true;
@@ -618,6 +623,10 @@ public class Player {
 
     public boolean isItemsUpdated() {
         return isItemsUpdated;
+    }
+
+    public boolean isGoldUpdated() {
+        return isGoldUpdated;
     }
 
     public boolean isPlotUpdated() {
