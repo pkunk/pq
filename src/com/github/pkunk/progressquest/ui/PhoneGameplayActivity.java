@@ -99,7 +99,9 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
     @Override
     protected void onStop() {
         super.onStop();
-        taskBarUpdater.cancel(true);
+        if (taskBarUpdater != null) {
+            taskBarUpdater.cancel(true);
+        }
         // Unbind from the service
         if (isBound) {
             PhoneGameplayActivity.this.service.removeGameplayListener(PhoneGameplayActivity.this);
