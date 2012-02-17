@@ -22,10 +22,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFE7E7E7"
-                    android:layout_marginLeft="6dip"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="4dip"
-                    android:layout_marginBottom="4dip"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     >
                 <TextView
                         android:id="@+id/ph_roster_newplayer_text"

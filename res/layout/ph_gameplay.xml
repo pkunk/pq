@@ -37,6 +37,7 @@
                     android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:padding="1dp"
                     >
                 <LinearLayout
                         android:id="@+id/ph_tab_char"
@@ -214,6 +215,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     style="@style/RedmondTable"
+                                    android:paddingBottom="16sp"
                                     android:stretchColumns="0"
                                     />
                         </LinearLayout>
