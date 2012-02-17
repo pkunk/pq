@@ -84,6 +84,7 @@ public class PhoneNewPlayerActivity extends Activity {
             Vfs.writeToFile(this, player.getPlayerId() + Vfs.ZIP_EXT, player.savePlayer());
             Vfs.setPlayerId(this, player.getPlayerId());
             Intent intent = new Intent(this, PhoneGameplayActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } catch (IOException ioe) {
             ioe.printStackTrace();
