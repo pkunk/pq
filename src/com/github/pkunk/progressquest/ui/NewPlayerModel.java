@@ -6,6 +6,7 @@ import com.github.pkunk.progressquest.gameplay.Stats;
 import com.github.pkunk.progressquest.gameplay.Traits;
 import com.github.pkunk.progressquest.init.Res;
 import com.github.pkunk.progressquest.util.PqUtils;
+import com.github.pkunk.progressquest.util.Vfs;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,7 +46,10 @@ public class NewPlayerModel {
     }
 
     public void setName(String name) {
-        selectedName = name;
+        selectedName = Vfs.sanitizeString(name);
+        if (selectedName.length() == 0) {
+            selectedName = "David";
+        }
     }
 
     public void setRace(String race) {

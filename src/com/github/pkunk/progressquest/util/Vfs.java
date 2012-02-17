@@ -156,4 +156,14 @@ public class Vfs {
         String result = builder.toString();
         return result.getBytes(UTF8);
     }
+    
+    public static String sanitizeString(String string) {
+        String result = string;
+        result = result.replace(Vfs.EQ, "-");
+        result = result.replace(Vfs.SEPARATOR, ":");
+        result = result.replace("\n", " ");
+        result = result.replace("\r", "");
+        result = result.trim();
+        return result;
+    }
 }
