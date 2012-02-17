@@ -34,6 +34,8 @@ public class GameplayService extends Service {
 
     private IBinder mBinder = new GameplayBinder();
 
+    private boolean mForceUpdateWidget = false;
+
     Set<GameplayServiceListener> mListeners = new HashSet<GameplayServiceListener>();
 
     private Player mPlayer = null;
@@ -74,7 +76,9 @@ public class GameplayService extends Service {
 
                 mHandler.postDelayed(this, mPlayer.getCurrentTaskTime());
                 notifyGameplayListeners();
-                updateWidget();
+                if (mForceUpdateWidget || mPlayer.isSaveGame() || mPlayer.isEquipUpdated()) {
+                    updateWidget();
+                }
             }
         }
     };
@@ -82,9 +86,6 @@ public class GameplayService extends Service {
     private void updateWidget() {
         RemoteViews view = new RemoteViews(getPackageName(), R.layout.widget);
         synchronized (PLAYER_LOCK) {
-            if (mPlayer.isSaveGame()) {
-                return;
-            }
             view.setTextViewText(R.id.wg_status1, UiUtils.getStatus1(mPlayer));
             view.setTextViewText(R.id.wg_status2, UiUtils.getStatus2(mPlayer));
             view.setTextViewText(R.id.wg_status3, UiUtils.getStatus3(mPlayer));
@@ -92,6 +93,7 @@ public class GameplayService extends Service {
         ComponentName thisWidget = new ComponentName(this, WidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thisWidget, view);
+        mForceUpdateWidget = false;
     }
 
     public void addGameplayListener(GameplayServiceListener listener) {
@@ -132,6 +134,12 @@ public class GameplayService extends Service {
             savedPlayer = Player.loadPlayer(playerSaveMap);
         }
         return savedPlayer;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mForceUpdateWidget = true;
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override

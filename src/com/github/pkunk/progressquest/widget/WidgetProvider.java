@@ -17,4 +17,11 @@ public class WidgetProvider extends AppWidgetProvider {
         final Intent intent = new Intent(context, GameplayService.class);
         context.startService(intent);
     }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        final Intent intent = new Intent(context, GameplayService.class);
+        context.stopService(intent);
+        super.onDeleted(context, appWidgetIds);
+    }
 }
