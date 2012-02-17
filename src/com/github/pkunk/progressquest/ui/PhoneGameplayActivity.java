@@ -144,13 +144,6 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         this.runOnUiThread(new UiUpdater(this, player, force));
     }
 
-    private static Player createPlayer() {
-        Traits traits = Traits.newTraits("Tester", "Gremlin", "Dancer");
-        Stats stats = Stats.newStats(new int[]{10,11,12,13,14,15,80,60});
-        Player player = Player.newPlayer(traits, stats);
-        return player;
-    }
-
     private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -168,10 +161,10 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
                     Player savedPlayer = PhoneGameplayActivity.this.service.loadPlayer(playerId);
                     PhoneGameplayActivity.this.service.setPlayer(savedPlayer);
                 } catch (Exception e) {
-                    Player newPlayer = createPlayer();
-                    PhoneGameplayActivity.this.service.setPlayer(newPlayer);
+                    e.printStackTrace();
                 }
                 player = PhoneGameplayActivity.this.service.getPlayer();
+                PhoneGameplayActivity.this.service.setWidgetOutdated();
             }
 
             if (player != null) {

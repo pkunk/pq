@@ -136,6 +136,10 @@ public class GameplayService extends Service {
         return savedPlayer;
     }
 
+    public void setWidgetOutdated() {
+        mForceUpdateWidget = true;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mForceUpdateWidget = true;
