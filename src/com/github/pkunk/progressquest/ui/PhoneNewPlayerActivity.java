@@ -69,6 +69,15 @@ public class PhoneNewPlayerActivity extends Activity {
         populateView();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (currentView == 0) {
+            super.onBackPressed();
+        } else {
+            goBack();
+        }
+    }
+
     private void createNewPlayer() {
         Player player = m.generatePlayer();
         try {
@@ -262,20 +271,27 @@ public class PhoneNewPlayerActivity extends Activity {
 
     private class ButtonNextListener implements OnClickListener {
         public void onClick(View v) {
-            if (currentView == VIEWS_NUM - 1) {
-                createNewPlayer();
-            } else {
-                currentView += 1;
-                updateSteps();
-            }
+            goNext();
         }
     }
 
     private class ButtonBackListener implements OnClickListener {
         public void onClick(View v) {
-            currentView -= 1;
+            goBack();
+        }
+    }
+
+    private void goNext() {
+        if (currentView == VIEWS_NUM - 1) {
+            createNewPlayer();
+        } else {
+            currentView += 1;
             updateSteps();
         }
     }
 
+    private void goBack() {
+        currentView -= 1;
+        updateSteps();
+    }
 }

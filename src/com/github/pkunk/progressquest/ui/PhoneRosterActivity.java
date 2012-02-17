@@ -100,7 +100,6 @@ public class PhoneRosterActivity extends Activity {
     private void createNewPlayer() {
         Intent intent = new Intent(this, PhoneNewPlayerActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void selectPlayer(String playerId) {
