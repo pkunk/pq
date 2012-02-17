@@ -9,6 +9,9 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.*;
 import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.gameplay.Equips;
@@ -108,12 +111,35 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
     public void onGameplay() {
         if (isBound) {
             // Don't block this thread
             Player player = service.getPlayer();
             updateUi(player, false);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_roster:
+                openRoster();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void openRoster() {
+        Intent intent = new Intent(this, PhoneRosterActivity.class);
+        startActivity(intent);
     }
 
     private void configureWidget() {
