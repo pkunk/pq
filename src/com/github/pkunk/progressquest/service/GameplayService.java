@@ -127,10 +127,10 @@ public class GameplayService extends Service {
         }
     }
 
-    public Player loadPlayer(String playerName) throws IOException {
+    public Player loadPlayer(String playerId) throws IOException {
         Player savedPlayer;
         synchronized (PLAYER_LOCK) {
-            Map<String, List<String>> playerSaveMap = Vfs.readFromFile(this, playerName + Vfs.ZIP_EXT);
+            Map<String, List<String>> playerSaveMap = Vfs.readFromFile(this, playerId + Vfs.ZIP_EXT);
             savedPlayer = Player.loadPlayer(playerSaveMap);
         }
         return savedPlayer;
@@ -138,6 +138,19 @@ public class GameplayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        mForceUpdateWidget = true;
+        if (mPlayer == null) {
+            String playerId = Vfs.getPlayerId(this);
+            if (playerId != null) {
+                try { 
+                    Player player = loadPlayer(playerId);
+                    setPlayer(player);
+                    updateWidget();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         mForceUpdateWidget = true;
         return super.onStartCommand(intent, flags, startId);
     }
