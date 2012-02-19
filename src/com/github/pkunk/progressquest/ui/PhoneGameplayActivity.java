@@ -310,6 +310,8 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
                 TableRow row = UiUtils.getTableRow(spellTable.getContext(), spell.getKey(), spell.getValue().toString());
                 spellTable.addView(row);
             }
+            TableRow emptyRow = UiUtils.getTableRow(spellTable.getContext(), "", "");
+            spellTable.addView(emptyRow);
             ((ScrollView)findViewById(R.id.ph_spell_scroll)).fullScroll(ScrollView.FOCUS_DOWN);
         }
 
@@ -344,6 +346,8 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
                 TableRow row = UiUtils.getTableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
                 itemsTable.addView(row);
             }
+            TableRow emptyRow = UiUtils.getTableRow(itemsTable.getContext(), "", "");
+            itemsTable.addView(emptyRow);
             if (player.isGoldUpdated()) {
                 ((ScrollView)findViewById(R.id.ph_items_scroll)).fullScroll(ScrollView.FOCUS_UP);
             } else {

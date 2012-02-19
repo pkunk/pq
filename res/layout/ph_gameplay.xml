@@ -215,7 +215,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     style="@style/RedmondTable"
-                                    android:paddingBottom="16sp"
                                     android:stretchColumns="0"
                                     />
                         </LinearLayout>

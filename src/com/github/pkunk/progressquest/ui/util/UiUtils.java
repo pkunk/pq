@@ -36,7 +36,7 @@ public class UiUtils {
         TableRow row = new TableRow(context);
         for (String title : text) {
             TextView textView = new TextView(row.getContext());
-            textView.setText(title);
+            textView.setText(" " + title);
             row.addView(textView);
         }
         return row;
