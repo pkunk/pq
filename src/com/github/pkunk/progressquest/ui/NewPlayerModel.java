@@ -62,7 +62,7 @@ public class NewPlayerModel {
 
     public void rollStats() {
         if (selectedStats != null) {
-            rollStack.push(selectedStats);
+            rollStack.addFirst(selectedStats);
         }
 
         int[] stats = new int[STATS_NUM];
@@ -75,7 +75,7 @@ public class NewPlayerModel {
     }
 
     public void unrollStats() {
-        selectedStats = rollStack.pop();
+        selectedStats = rollStack.removeFirst();
     }
 
     public boolean hasOldRolls() {

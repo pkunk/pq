@@ -105,6 +105,7 @@ public class PhoneRosterActivity extends Activity {
     private void selectPlayer(String playerId) {
         Vfs.setPlayerId(this, playerId);
         Intent intent = new Intent(this, PhoneGameplayActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.zip.ZipOutputStream;
 public class Vfs {
     private static final String TAG = Vfs.class.getCanonicalName();
 
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final String UTF8 = "UTF-8";
 
     public static final String SETTINGS = "Settings";
 
@@ -143,7 +142,12 @@ public class Vfs {
     }
 
     private static List<String> fromByteArray(byte[] array) {
-        String read = new String(array, UTF8);
+        String read = null;
+        try {
+            read = new String(array, UTF8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         List<String> result = Arrays.asList(read.split("\n"));
         return result;
     }
@@ -153,8 +157,14 @@ public class Vfs {
         for (String s : strings) {
             builder.append(s).append("\n");
         }
-        String result = builder.toString();
-        return result.getBytes(UTF8);
+        String text = builder.toString();
+        byte[] result = null;
+        try {
+            result = text.getBytes(UTF8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
     
     public static String sanitizeString(String string) {

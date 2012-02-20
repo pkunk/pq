@@ -25,7 +25,9 @@ public class WidgetProvider extends AppWidgetProvider {
         // Set OnClickListener
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent activityIntent = new Intent(context, PhoneGameplayActivity.class);
+        activityIntent.setPackage(PhoneGameplayActivity.class.getPackage().getName());
         activityIntent.setAction(Intent.ACTION_MAIN);
+        activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent actionPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.wg_main, actionPendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
