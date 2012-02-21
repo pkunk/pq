@@ -25,7 +25,7 @@ public class WidgetProvider extends AppWidgetProvider {
         // Set OnClickListener
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent activityIntent = new Intent(context, PhoneGameplayActivity.class);
-        activityIntent.setPackage(PhoneGameplayActivity.class.getPackage().getName());
+        activityIntent.setPackage(context.getPackageName());
         activityIntent.setAction(Intent.ACTION_MAIN);
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent actionPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
@@ -34,9 +34,9 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        final Intent intent = new Intent(context, GameplayService.class);
+    public void onDisabled(Context context) {
+        Intent intent = new Intent(context, GameplayService.class);
         context.stopService(intent);
-        super.onDeleted(context, appWidgetIds);
+        super.onDisabled(context);
     }
 }
