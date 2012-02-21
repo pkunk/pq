@@ -24,6 +24,8 @@ public class Vfs {
     private static final String UTF8 = "UTF-8";
 
     public static final String SETTINGS = "Settings";
+    public static final String PLAYER_ID = "playerId";
+    public static final String TAB_STATE = "tabState";
 
     public static final String EQ = "=";
     public static final String SEPARATOR = ";";
@@ -35,13 +37,25 @@ public class Vfs {
     public static void setPlayerId(Context context, String playerId) {
         SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("playerId", playerId);
+        editor.putString(PLAYER_ID, playerId);
         editor.commit();
     }
 
     public static String getPlayerId(Context context) {
         SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        return settings.getString("playerId", null);
+        return settings.getString(PLAYER_ID, null);
+    }
+
+    public static void setTabState(Context context, int tabState) {
+        SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(TAB_STATE, tabState);
+        editor.commit();
+    }
+
+    public static int getTabState(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        return settings.getInt(TAB_STATE, 0);
     }
 
     public static void writeToFile(Context context, String fileName, Map<String, List<String>> dataMap) throws IOException {

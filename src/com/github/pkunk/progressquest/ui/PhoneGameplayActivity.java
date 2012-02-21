@@ -58,17 +58,14 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         tabHost.addTab(tabHost.newTabSpec("ph_tab_plot").setIndicator("  Plot  ").setContent(R.id.ph_tab_plot));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_quests").setIndicator("  Quests  ").setContent(R.id.ph_tab_quests));
 
-        if(savedInstanceState != null ){
-            tabHost.setCurrentTab(savedInstanceState.getInt("tabState"));
-        } else {
-            tabHost.setCurrentTab(0);
-        }
+        int tabState = Vfs.getTabState(this);
+        tabHost.setCurrentTab(tabState);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("tabState", tabHost.getCurrentTab());
+        Vfs.setTabState(this, tabHost.getCurrentTab());
     }
 
     private void setupTabHost() {
