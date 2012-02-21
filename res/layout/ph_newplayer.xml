@@ -12,6 +12,9 @@
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/ph_np_controls"
+            android:paddingTop="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             >
 
         <LinearLayout
@@ -23,6 +26,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="    Name"
                     />
             <RelativeLayout
@@ -59,12 +63,14 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="    Race"
                     />
             <ScrollView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:fillViewport="true"
+                    android:fadeScrollbars="false"
                     >
                 <RadioGroup
                         android:id="@+id/ph_np_race_group"
@@ -83,12 +89,14 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="    Class"
                     />
             <ScrollView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:fillViewport="true"
+                    android:fadeScrollbars="false"
                     >
                 <RadioGroup
                         android:id="@+id/ph_np_role_group"
@@ -107,6 +115,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="    Stats"
                     />
             <ScrollView

@@ -13,7 +13,7 @@
                 android:icon="@drawable/icon"
                 android:theme="@style/Redmond"
                 android:finishOnTaskLaunch="true"
-                android:configChanges="orientation"
+                android:configChanges="orientation|keyboardHidden"
                 >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
 
         <activity
                 android:name=".ui.PhoneNewPlayerActivity"
-                android:configChanges="orientation"
+                android:configChanges="orientation|keyboardHidden"
                 android:icon="@drawable/icon"
                 android:theme="@style/Redmond"
                 >
@@ -34,7 +34,7 @@
 
         <activity
                 android:name=".ui.PhoneRosterActivity"
-                android:configChanges="orientation"
+                android:configChanges="orientation|keyboardHidden"
                 android:icon="@drawable/icon"
                 android:theme="@style/Redmond"
                 >
