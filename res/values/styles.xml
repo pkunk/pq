@@ -2,15 +2,16 @@
 <resources>
 
     <style name="Redmond">
-        <item name="android:textColor">#ff000000</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="RedmondTable">
-        <item name="android:background">#ffffffff</item>
-        <item name="android:layout_marginLeft">6sp</item>
-        <item name="android:layout_marginRight">6sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-        <item name="android:layout_marginTop">4sp</item>
+        <item name="android:background">#FFFFFFFF</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
     </style>
 
 </resources>

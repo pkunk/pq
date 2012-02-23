@@ -39,10 +39,11 @@
                     android:layout_height="wrap_content"
                     android:padding="1dp"
                     >
+
                 <LinearLayout
                         android:id="@+id/ph_tab_char"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:orientation="vertical"
                         >
                     <TextView
@@ -55,7 +56,6 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:fillViewport="true"
-                            android:gravity="clip_vertical"
                             >
                         <LinearLayout
                                 android:layout_width="fill_parent"
@@ -94,8 +94,7 @@
                 <RelativeLayout
                         android:id="@+id/ph_tab_spell"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_height="fill_parent"
                         >
                     <LinearLayout
                             android:id="@+id/ph_tab_spell_header"
@@ -138,7 +137,7 @@
                 <LinearLayout
                         android:id="@+id/ph_tab_equip"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:orientation="vertical"
                         >
                     <TextView
@@ -148,7 +147,7 @@
                             android:text="Equipment"
                             />
                     <ScrollView
-                            android:layout_width="wrap_content"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             >
                         <LinearLayout
@@ -170,7 +169,7 @@
                 <RelativeLayout
                         android:id="@+id/ph_tab_items"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         >
                     <LinearLayout
                             android:id="@+id/ph_tab_items_header"
@@ -224,8 +223,7 @@
                 <RelativeLayout
                         android:id="@+id/ph_tab_plot"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_height="fill_parent"
                         >
                     <LinearLayout
                             android:id="@+id/ph_tab_plot_header"
@@ -274,9 +272,8 @@
                 <RelativeLayout
                         android:id="@+id/ph_tab_quests"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:layout_alignParentTop="true"
-                        android:orientation="vertical"
                         >
                     <LinearLayout
                             android:id="@+id/ph_tab_quests_header"
