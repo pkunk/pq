@@ -3,6 +3,7 @@ package com.github.pkunk.progressquest.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -21,6 +22,11 @@ public class WidgetProvider extends AppWidgetProvider {
         super.onEnabled(context);
         Intent serviceIntent = new Intent(context, GameplayService.class);
         context.startService(serviceIntent);
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        ComponentName thisWidget = new ComponentName(context, WidgetProvider.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        manager.updateAppWidget(thisWidget, remoteViews);
     }
 
     @Override

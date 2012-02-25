@@ -42,11 +42,20 @@ public class GameplayService extends Service {
 
     public void setPlayer(Player player) {
         synchronized (PLAYER_LOCK) {
+            mHandler.removeCallbacks(updateTask);
             savePlayer();
             this.mPlayer = player;
-            mHandler.removeCallbacks(updateTask);
             mHandler.postDelayed(updateTask, player.getCurrentTaskTime());
         }
+        updateWidget(player);
+    }
+
+    public void removePlayer() {
+        synchronized (PLAYER_LOCK) {
+            mHandler.removeCallbacks(updateTask);
+            this.mPlayer = null;
+        }
+        updateWidget(null);
     }
 
     public Player getPlayer() {
@@ -62,6 +71,7 @@ public class GameplayService extends Service {
             Log.d(TAG, "Turn");
             if (mPlayer != null) {
 
+                Player widgetPlayer = null;
                 synchronized (PLAYER_LOCK) {
                     makeTurn();
                     if (checkToSave()) {
@@ -72,23 +82,24 @@ public class GameplayService extends Service {
                             }
                         }).start();
                     }
+                    widgetPlayer = mPlayer;
                 }
 
                 mHandler.postDelayed(this, mPlayer.getCurrentTaskTime());
                 notifyGameplayListeners();
                 if (mForceUpdateWidget || mPlayer.isSaveGame() || mPlayer.isEquipUpdated()) {
-                    updateWidget();
+                    updateWidget(widgetPlayer);
                 }
             }
         }
     };
     
-    private void updateWidget() {
+    private void updateWidget(Player player) {
         RemoteViews view = new RemoteViews(getPackageName(), R.layout.widget);
         synchronized (PLAYER_LOCK) {
-            view.setTextViewText(R.id.wg_status1, UiUtils.getStatus1(mPlayer));
-            view.setTextViewText(R.id.wg_status2, UiUtils.getStatus2(mPlayer));
-            view.setTextViewText(R.id.wg_status3, UiUtils.getStatus3(mPlayer));
+            view.setTextViewText(R.id.wg_status1, UiUtils.getStatus1(player));
+            view.setTextViewText(R.id.wg_status2, UiUtils.getStatus2(player));
+            view.setTextViewText(R.id.wg_status3, UiUtils.getStatus3(player));
         }
         ComponentName thisWidget = new ComponentName(this, WidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
@@ -149,7 +160,7 @@ public class GameplayService extends Service {
                 try { 
                     Player player = loadPlayer(playerId);
                     setPlayer(player);
-                    updateWidget();
+                    updateWidget(player);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

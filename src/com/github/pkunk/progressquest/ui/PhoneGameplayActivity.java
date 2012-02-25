@@ -80,6 +80,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         playerId = Vfs.getPlayerId(this);
         if (playerId == null) {
             Intent intent = new Intent(PhoneGameplayActivity.this, PhoneRosterActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             PhoneGameplayActivity.this.finish();
             return;
@@ -95,7 +96,6 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
 
     @Override
     protected void onStop() {
-        super.onStop();
         if (taskBarUpdater != null) {
             taskBarUpdater.cancel(true);
         }
@@ -105,6 +105,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             unbindService(connection);
             isBound = false;
         }
+        super.onStop();
     }
 
     @Override

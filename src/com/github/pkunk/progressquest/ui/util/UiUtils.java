@@ -74,6 +74,9 @@ public class UiUtils {
     }
 
     public static String getStatus1(Player player) {
+        if (player == null) {
+            return "";
+        }
         Traits traits = player.getTraits();
         StringBuilder statusText = new StringBuilder();
         statusText.append(traits.getName()).append(" the ").append(traits.getRace());
@@ -82,6 +85,9 @@ public class UiUtils {
     }
 
     public static String getStatus2(Player player) {
+        if (player == null) {
+            return "";
+        }
         Traits traits = player.getTraits();
         StringBuilder statusText = new StringBuilder();
         statusText.append("Level ").append(traits.getLevel()).append(" ").append(traits.getRole());
@@ -89,6 +95,9 @@ public class UiUtils {
     }
 
     public static String getStatus3(Player player) {
+        if (player == null) {
+            return "";
+        }
         StringBuilder statusText = new StringBuilder();
         statusText.append(player.getBestEquip()).append(" / ");
         if (player.getBestSpell().length() > 0) {

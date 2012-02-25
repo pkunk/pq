@@ -2,14 +2,16 @@ package com.github.pkunk.progressquest.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.github.pkunk.progressquest.R;
 import com.github.pkunk.progressquest.init.Res;
+import com.github.pkunk.progressquest.service.GameplayService;
 import com.github.pkunk.progressquest.ui.view.RosterEntryView;
 import com.github.pkunk.progressquest.util.Vfs;
 
@@ -21,6 +23,7 @@ import java.util.*;
  * Date: 2012-02-12
  */
 public class PhoneRosterActivity extends Activity {
+    private static final String TAG = PhoneRosterActivity.class.getCanonicalName();
 
     private Map<View, String> playViewsMap;
     private Map<View, String> killViewsMap;
@@ -28,6 +31,9 @@ public class PhoneRosterActivity extends Activity {
     private Map<String, String> namesMap;
 
     private String playerIdToKill;
+
+    private GameplayService service;
+    private volatile boolean isBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,40 @@ public class PhoneRosterActivity extends Activity {
 
         populateView();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, GameplayService.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        if (isBound) {
+            unbindService(connection);
+            isBound = false;
+        }
+        super.onStop();
+    }
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            Log.d(TAG, "onServiceConnected");
+
+            GameplayService.GameplayBinder binder = (GameplayService.GameplayBinder) service;
+            PhoneRosterActivity.this.service = binder.getService();
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            Log.d(TAG, "onServiceDisconnected");
+            isBound = false;
+        }
+    };
 
     private void populateView() {
         String[] saveFiles = Vfs.getSaveFiles(this);
@@ -112,9 +152,10 @@ public class PhoneRosterActivity extends Activity {
     
     private void killPlayer() {
         String currentPlayerId = Vfs.getPlayerId(this);
-        //todo: move this to service
+
         if (playerIdToKill.equals(currentPlayerId)) {
             Vfs.setPlayerId(this, null);
+            service.removePlayer();
         }
         Vfs.deleteFile(this, playerIdToKill + Vfs.ZIP_EXT);
         removeRosterEntry(playerIdToKill);
