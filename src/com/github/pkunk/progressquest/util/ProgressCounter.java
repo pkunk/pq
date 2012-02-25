@@ -1,4 +1,4 @@
-package com.github.pkunk.progressquest.gameplay;
+package com.github.pkunk.progressquest.util;
 
 /**
  * User: pkunk
