@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.ui.util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.CheckBox;
@@ -105,6 +106,12 @@ public class UiUtils {
         }
         statusText.append(player.getBestStat());
         return statusText.toString();
+    }
+
+    public static Dialog aboutDialog(Context context) {
+        Dialog dialog = new Dialog(context, R.style.About);
+        dialog.setContentView(R.layout.about);
+        return dialog;
     }
 
     public static int generateViewId() {

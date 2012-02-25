@@ -6,4 +6,8 @@
             android:id="@+id/menu_roster"
             android:title="Roster"
             />
+    <item
+            android:id="@+id/menu_about"
+            android:title="About"
+            />
 </menu>

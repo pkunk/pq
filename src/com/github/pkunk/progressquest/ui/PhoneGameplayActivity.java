@@ -1,6 +1,7 @@
 package com.github.pkunk.progressquest.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -130,6 +131,9 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             case R.id.menu_roster:
                 openRoster();
                 return true;
+            case R.id.menu_about:
+                openAbout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -138,6 +142,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
     private void openRoster() {
         Intent intent = new Intent(this, PhoneRosterActivity.class);
         startActivity(intent);
+    }
+
+    private void openAbout() {
+        Dialog aboutDialog = UiUtils.aboutDialog(this);
+        aboutDialog.show();
     }
 
     private void updateUi(Player player, boolean force) {

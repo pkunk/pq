@@ -14,4 +14,8 @@
         <item name="android:layout_marginTop">4dp</item>
     </style>
 
+    <style name="About">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
 </resources>

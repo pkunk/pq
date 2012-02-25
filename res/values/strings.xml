@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Progress Quest</string>
+    <string name="about_text">
+        Progress Quest\n
+        \n
+        Android version 0.1\n
+        Port by pkunk\n
+        pkunk.ab@gmail.com\n
+        \n
+        For more info about original game, see\n
+        http://progressquest.com/\n
+        \n
+        For source code and feedback about the Android port, see\n
+        https://github.com/pkunk/progressquest/\n
+    </string>
 </resources>
