@@ -17,19 +17,24 @@ import com.github.pkunk.progressquest.ui.PhoneGameplayActivity;
 public class WidgetProvider extends AppWidgetProvider {
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // Start service
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
         Intent serviceIntent = new Intent(context, GameplayService.class);
         context.startService(serviceIntent);
+    }
 
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // Set OnClickListener
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
-        Intent activityIntent = new Intent(context, PhoneGameplayActivity.class);
-        activityIntent.setPackage(context.getPackageName());
-        activityIntent.setAction(Intent.ACTION_MAIN);
-        activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent actionPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
-        remoteViews.setOnClickPendingIntent(R.id.wg_main, actionPendingIntent);
+        Intent intent = new Intent(context, PhoneGameplayActivity.class);
+        intent.setPackage(context.getPackageName());
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.wg_status1, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.wg_status2, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.wg_status3, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
     }
 
