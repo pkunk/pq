@@ -23,6 +23,7 @@
                 android:textStyle="bold"
                 android:textColor="#ffffffff"
                 android:textSize="16dp"
+                android:text="Progress Quest"
                 />
         <TextView
                 android:id="@+id/wg_status2"
@@ -31,6 +32,7 @@
                 android:singleLine="true"
                 android:textColor="#ffffffff"
                 android:textSize="16dp"
+                android:text="Click to start"
                 />
         <TextView
                 android:id="@+id/wg_status3"

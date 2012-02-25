@@ -75,7 +75,7 @@ public class UiUtils {
 
     public static String getStatus1(Player player) {
         if (player == null) {
-            return "";
+            return "Progress Quest";
         }
         Traits traits = player.getTraits();
         StringBuilder statusText = new StringBuilder();
@@ -86,7 +86,7 @@ public class UiUtils {
 
     public static String getStatus2(Player player) {
         if (player == null) {
-            return "";
+            return "Click to start";
         }
         Traits traits = player.getTraits();
         StringBuilder statusText = new StringBuilder();

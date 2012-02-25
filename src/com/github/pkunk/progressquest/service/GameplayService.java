@@ -48,6 +48,7 @@ public class GameplayService extends Service {
             mHandler.postDelayed(updateTask, player.getCurrentTaskTime());
         }
         updateWidget(player);
+        mForceUpdateWidget = true;
     }
 
     public void removePlayer() {
@@ -56,6 +57,7 @@ public class GameplayService extends Service {
             this.mPlayer = null;
         }
         updateWidget(null);
+        mForceUpdateWidget = true;
     }
 
     public Player getPlayer() {

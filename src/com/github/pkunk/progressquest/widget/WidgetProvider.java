@@ -31,6 +31,9 @@ public class WidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Intent serviceIntent = new Intent(context, GameplayService.class);
+        context.startService(serviceIntent);
+
         // Set OnClickListener
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent = new Intent(context, PhoneGameplayActivity.class);
