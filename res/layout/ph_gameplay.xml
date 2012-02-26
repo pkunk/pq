@@ -74,7 +74,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Experience"
                                     />
-                            <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                            <com.github.pkunk.pq.ui.view.TextProgressBar
                                     android:id="@+id/ph_level_bar"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Encumbrance"
                                 />
-                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                        <com.github.pkunk.pq.ui.view.TextProgressBar
                                 android:id="@+id/ph_encum_bar"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                                 android:textStyle="bold"
                                 android:text="Plot Development"
                                 />
-                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                        <com.github.pkunk.pq.ui.view.TextProgressBar
                                 android:id="@+id/ph_plot_bar"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -286,7 +286,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Progress"
                                 />
-                        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+                        <com.github.pkunk.pq.ui.view.TextProgressBar
                                 android:id="@+id/ph_quests_bar"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 />
-        <com.github.pkunk.progressquest.ui.view.TextProgressBar
+        <com.github.pkunk.pq.ui.view.TextProgressBar
                 android:id="@+id/ph_task_bar"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

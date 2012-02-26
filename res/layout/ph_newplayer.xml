@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:text="      "
                             />
-                    <com.github.pkunk.progressquest.ui.view.StatView
+                    <com.github.pkunk.pq.ui.view.StatView
                             android:id="@+id/ph_np_total"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
         xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.github.pkunk.progressquest"
+        package="com.github.pkunk.pq"
         android:versionCode="1"
         android:versionName="0.1"
         >
@@ -50,7 +50,7 @@
 
         <service android:name=".service.GameplayService" />
 
-        <receiver android:name="com.github.pkunk.progressquest.widget.WidgetProvider" >
+        <receiver android:name="com.github.pkunk.pq.widget.WidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
