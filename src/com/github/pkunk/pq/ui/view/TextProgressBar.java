@@ -21,6 +21,7 @@ public class TextProgressBar extends ProgressBar {
         text = "";
         textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
+        textPaint.setAntiAlias(true);
     }
 
     @Override
