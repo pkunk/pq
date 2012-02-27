@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         setContentView(R.layout.ph_gameplay);
 
         setupTabHost();
-//        tabHost = getTabHost();
 
         tabHost.addTab(tabHost.newTabSpec("ph_tab_char").setIndicator("  Character  ").setContent(R.id.ph_tab_char));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_spell").setIndicator("  Spells  ").setContent(R.id.ph_tab_spell));
@@ -58,6 +58,11 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         tabHost.addTab(tabHost.newTabSpec("ph_tab_items").setIndicator("  Inventory  ").setContent(R.id.ph_tab_items));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_plot").setIndicator("  Plot  ").setContent(R.id.ph_tab_plot));
         tabHost.addTab(tabHost.newTabSpec("ph_tab_quests").setIndicator("  Quests  ").setContent(R.id.ph_tab_quests));
+
+        for (int i=0; i<tabHost.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(Color.WHITE);
+        }
 
         int tabState = Vfs.getTabState(this);
         tabHost.setCurrentTab(tabState);

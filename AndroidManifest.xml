@@ -60,10 +60,5 @@
                        android:resource="@xml/widget_info" />
         </receiver>
 
-        <supports-screens
-                android:largeScreens="false"
-                android:xlargeScreens="false"
-                />
-
     </application>
 </manifest>
