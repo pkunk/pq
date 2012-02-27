@@ -139,6 +139,9 @@ public class PhoneRosterActivity extends Activity {
 
     private void createNewPlayer() {
         Intent intent = new Intent(this, PhoneNewPlayerActivity.class);
+        if (namesMap.isEmpty()) {
+            finish();
+        }
         startActivity(intent);
     }
 
