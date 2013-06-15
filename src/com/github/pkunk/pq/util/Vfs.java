@@ -30,8 +30,8 @@ public class Vfs {
     public static final String EQ = "=";
     public static final String SEPARATOR = ";";
 
-    public static final String ZIP_EXT = ".zip";
-    public static final String BAK_EXT = ".bak";
+    private static final String ZIP_EXT = ".zip";
+    private static final String BAK_EXT = ".bak";
 
 
     public static void setPlayerId(Context context, String playerId) {
@@ -59,7 +59,7 @@ public class Vfs {
     }
 
     public static void writeToFile(Context context, String fileName, Map<String, List<String>> dataMap) throws IOException {
-        OutputStream os = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+        OutputStream os = context.openFileOutput(fileName + ZIP_EXT, Context.MODE_PRIVATE);
         ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
         try {
             for (Map.Entry<String, List<String>> dataEntry : dataMap.entrySet()) {
@@ -83,7 +83,7 @@ public class Vfs {
 
         Map<String, List<String>> result = new HashMap<String, List<String>>();
 
-        InputStream is = context.openFileInput(fileName);
+        InputStream is = context.openFileInput(fileName + ZIP_EXT);
         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
         try {
             ZipEntry ze;
@@ -151,7 +151,7 @@ public class Vfs {
 
     public static boolean deleteFile(Context context, String fileName) {
         File saveDir = context.getFilesDir();
-        File file = new File(saveDir, fileName);
+        File file = new File(saveDir, fileName + ZIP_EXT);
         return file.delete();
     }
 
