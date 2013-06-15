@@ -58,8 +58,8 @@ public class Vfs {
         return settings.getInt(TAB_STATE, 0);
     }
 
-    public static void writeToFile(Context context, String fileName, Map<String, List<String>> dataMap) throws IOException {
-        OutputStream os = context.openFileOutput(fileName + ZIP_EXT, Context.MODE_PRIVATE);
+    public static void writePlayerToFile(Context context, String playerId, Map<String, List<String>> dataMap) throws IOException {
+        OutputStream os = context.openFileOutput(playerId + ZIP_EXT, Context.MODE_PRIVATE);
         ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
         try {
             for (Map.Entry<String, List<String>> dataEntry : dataMap.entrySet()) {
@@ -79,11 +79,11 @@ public class Vfs {
     }
 
 
-    public static Map<String, List<String>> readFromFile(Context context, String fileName) throws IOException {
+    public static Map<String, List<String>> readPlayerFromFile(Context context, String playerId) throws IOException {
 
         Map<String, List<String>> result = new HashMap<String, List<String>>();
 
-        InputStream is = context.openFileInput(fileName + ZIP_EXT);
+        InputStream is = context.openFileInput(playerId + ZIP_EXT);
         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
         try {
             ZipEntry ze;
@@ -109,7 +109,7 @@ public class Vfs {
         return result;
     }
 
-    public static String[] getSaveFiles (Context context) {
+    public static String[] getSaveFiles(Context context) {
         File saveDir = context.getFilesDir();
         String[] saveFiles = saveDir.list(new FilenameFilter() {
             @Override
@@ -123,7 +123,7 @@ public class Vfs {
         return saveFiles;
     }
 
-    public static Map<String, List<String>> readEntryFromFiles (Context context, String[] fileNames, String entry) {
+    public static Map<String, List<String>> readEntryFromFiles(Context context, String[] fileNames, String entry) {
         Map<String, List<String>> result = new HashMap<String, List<String>>(fileNames.length);
         File saveDir = context.getFilesDir();
         for (String fileName : fileNames) {
@@ -149,9 +149,9 @@ public class Vfs {
         return result;
     }
 
-    public static boolean deleteFile(Context context, String fileName) {
+    public static boolean deletePlayerFile(Context context, String playerId) {
         File saveDir = context.getFilesDir();
-        File file = new File(saveDir, fileName + ZIP_EXT);
+        File file = new File(saveDir, playerId + ZIP_EXT);
         return file.delete();
     }
 

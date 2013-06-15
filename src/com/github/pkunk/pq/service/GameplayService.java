@@ -133,7 +133,7 @@ public class GameplayService extends Service {
                 return;
             }
             try {
-                Vfs.writeToFile(this, mPlayer.getPlayerId(), mPlayer.savePlayer());
+                Vfs.writePlayerToFile(this, mPlayer.getPlayerId(), mPlayer.savePlayer());
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -143,7 +143,7 @@ public class GameplayService extends Service {
     public Player loadPlayer(String playerId) throws IOException {
         Player savedPlayer;
         synchronized (PLAYER_LOCK) {
-            Map<String, List<String>> playerSaveMap = Vfs.readFromFile(this, playerId);
+            Map<String, List<String>> playerSaveMap = Vfs.readPlayerFromFile(this, playerId);
             savedPlayer = Player.loadPlayer(playerSaveMap);
         }
         return savedPlayer;

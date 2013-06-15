@@ -160,7 +160,7 @@ public class PhoneRosterActivity extends Activity {
             Vfs.setPlayerId(this, null);
             service.removePlayer();
         }
-        Vfs.deleteFile(this, playerIdToKill);
+        Vfs.deletePlayerFile(this, playerIdToKill);
         removeRosterEntry(playerIdToKill);
     }
 
