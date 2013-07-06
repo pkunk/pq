@@ -57,7 +57,8 @@ public class Vfs {
     }
 
     public static void writePlayerToFile(Context context, String playerId, Map<String, List<String>> dataMap) throws IOException {
-        OutputStream os = context.openFileOutput(playerId + ZIP_EXT, Context.MODE_PRIVATE);
+        String fileName = playerId + FILE_NAME_SEPARATOR + PqUtils.getShortTimestamp() + ZIP_EXT;
+        OutputStream os = context.openFileOutput(fileName, Context.MODE_PRIVATE);
         ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
         try {
             for (Map.Entry<String, List<String>> dataEntry : dataMap.entrySet()) {
@@ -74,6 +75,9 @@ public class Vfs {
                 ioe.printStackTrace();
             }
         }
+
+        String[] playerSaveFiles = getPlayerSaveFiles(context, playerId);
+        filterSaveFiles(context, playerSaveFiles, playerId);
     }
 
 
