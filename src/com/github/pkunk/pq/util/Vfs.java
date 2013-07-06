@@ -204,7 +204,12 @@ public class Vfs {
         Collections.sort(validSaveFileList, new Comparator<String>() {
             @Override
             public int compare(String lhs, String rhs) {
-                return rhs.compareTo(lhs);
+                int diff = rhs.length() - lhs.length();
+                if (diff != 0) {
+                    return diff;
+                } else {
+                    return rhs.compareTo(lhs);
+                }
             }
         });
         
