@@ -241,10 +241,11 @@ public class Vfs {
         return result;
     }
 
-    public static boolean deletePlayerFile(Context context, String playerId) {
-        File saveDir = context.getFilesDir();
-        File file = new File(saveDir, playerId + ZIP_EXT);
-        return file.delete();
+    public static void deletePlayerFiles(Context context, String playerId) {
+        String[] playerSaveFiles = getPlayerSaveFiles(context, playerId);
+        for (String saveFile : playerSaveFiles) {
+            deleteFile(context, saveFile);
+        }
     }
 
     private static boolean deleteFile(Context context, String fileName) {
