@@ -70,9 +70,17 @@ public class PqUtils {
         else return seconds/(3600*24*30*12) + " years";
     }
 
-    public static String getTimestamp() {
+    public static String getLongTimestamp() {
+        return getTimestamp("yyyy-MM-dd-HH-mm-ss-SSSS");
+    }
+
+    public static String getShortTimestamp() {
+        return getTimestamp("yyyyMMddHHmmssSSSS");
+    }
+
+    private static String getTimestamp(String pattern) {
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSSS");
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         return format.format(date);
     }

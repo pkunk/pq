@@ -49,7 +49,7 @@ public class Player {
     public static Player newPlayer(Traits traits, Stats stats) {
         Player player = new Player();
 
-        player.playerId = PqUtils.getTimestamp();
+        player.playerId = PqUtils.getLongTimestamp();
 
         player.game = Game.newGame();
         player.traits = traits;
