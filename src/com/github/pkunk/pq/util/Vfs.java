@@ -109,7 +109,11 @@ public class Vfs {
         return result;
     }
 
-    public static String[] getSaveFiles(Context context) {
+    public static String[] getPlayersSaveFiles(Context context) {
+        return getAllSaveFiles(context);
+    }
+
+    private static String[] getAllSaveFiles(Context context) {
         File saveDir = context.getFilesDir();
         String[] saveFiles = saveDir.list(new FilenameFilter() {
             @Override

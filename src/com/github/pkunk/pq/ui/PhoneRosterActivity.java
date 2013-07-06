@@ -81,7 +81,7 @@ public class PhoneRosterActivity extends Activity {
     };
 
     private void populateView() {
-        String[] saveFiles = Vfs.getSaveFiles(this);
+        String[] saveFiles = Vfs.getPlayersSaveFiles(this);
         Arrays.sort(saveFiles);
 
         Map<String, List<String>> statusMap = Vfs.readEntryFromFiles(this, saveFiles, "Annotation");
