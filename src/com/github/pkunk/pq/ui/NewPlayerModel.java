@@ -48,7 +48,7 @@ public class NewPlayerModel {
     public void setName(String name) {
         selectedName = Vfs.sanitizeString(name);
         if (selectedName.length() == 0) {
-            selectedName = "David";
+            selectedName = "Hero";
         }
     }
 
