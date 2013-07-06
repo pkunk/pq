@@ -112,34 +112,29 @@ public class Vfs {
 
     public static String[] getPlayersSaveFiles(Context context) {
         String[] saveFiles = getAllSaveFiles(context);
-        Map<String, List<String>> playerAnnotationMap = Vfs.readEntryFromFiles(context, saveFiles, "Annotation");
 
         Map<String, List<String>> playersMap = new HashMap<String, List<String>>();
         for (String saveFileName : saveFiles) {
             String playerId = saveFileName.substring(0, saveFileName.indexOf(FILE_NAME_SEPARATOR));
 
-            if (checkSaveFile(playerId, playerAnnotationMap.get(saveFileName))) {
-                List<String> playerFileList;
-                if (playersMap.keySet().contains(playerId)) {
-                    playerFileList = playersMap.get(playerId);
-                } else {
-                    playerFileList = new ArrayList<String>();
-                    playersMap.put(playerId, playerFileList);
-                }
-                playerFileList.add(saveFileName);
-
+            List<String> playerFileList;
+            if (playersMap.keySet().contains(playerId)) {
+                playerFileList = playersMap.get(playerId);
             } else {
-                deleteFile(context, saveFileName);
+                playerFileList = new ArrayList<String>();
+                playersMap.put(playerId, playerFileList);
             }
+            playerFileList.add(saveFileName);
         }
 
         List<String> result = new ArrayList<String>();
 
-        for (List<String> fileNames : playersMap.values()) {
-            assert fileNames.size() > 0;
-
-            Collections.sort(fileNames);
-            result.add(fileNames.get(fileNames.size() - 1));
+        for (String playerId : playersMap.keySet()) {
+            List<String> playerSaveFiles = playersMap.get(playerId);
+            String fileName = filterSaveFiles(context, playerSaveFiles.toArray(new String[playerSaveFiles.size()]), playerId);
+            if (fileName.length() > 0) {
+                result.add(fileName);
+            }
         }
 
         return result.toArray(new String[result.size()]);
