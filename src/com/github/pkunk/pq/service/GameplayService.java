@@ -140,11 +140,15 @@ public class GameplayService extends Service {
         }
     }
 
-    public Player loadPlayer(String playerId) throws IOException {
-        Player savedPlayer;
+    public Player loadPlayer(String playerId) {
+        Player savedPlayer = null;
         synchronized (PLAYER_LOCK) {
-            Map<String, List<String>> playerSaveMap = Vfs.readPlayerFromFile(this, playerId);
-            savedPlayer = Player.loadPlayer(playerSaveMap);
+            try {
+                Map<String, List<String>> playerSaveMap = Vfs.readPlayerFromFile(this, playerId);
+                savedPlayer = Player.loadPlayer(playerSaveMap);
+            } catch (IOException ioe) {
+                Vfs.setPlayerId(this, null);
+            }
         }
         return savedPlayer;
     }
@@ -158,7 +162,7 @@ public class GameplayService extends Service {
         mForceUpdateWidget = true;
         if (mPlayer == null) {
             String playerId = Vfs.getPlayerId(this);
-            if (playerId != null) {
+            if (playerId != null && playerId.length() > 0) {
                 try { 
                     Player player = loadPlayer(playerId);
                     setPlayer(player);

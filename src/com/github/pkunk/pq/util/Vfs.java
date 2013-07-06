@@ -30,6 +30,7 @@ public class Vfs {
     private static final String FILE_NAME_SEPARATOR = ".";
     private static final String ZIP_EXT = FILE_NAME_SEPARATOR + "zip";
 
+    private static final int MAX_SAVE_FILES = 5;
 
     public static void setPlayerId(Context context, String playerId) {
         SharedPreferences settings = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
@@ -78,9 +79,12 @@ public class Vfs {
 
     public static Map<String, List<String>> readPlayerFromFile(Context context, String playerId) throws IOException {
 
+        String[] playerSaveFiles = getPlayerSaveFiles(context, playerId);
+        String fileName = filterSaveFiles(context, playerSaveFiles, playerId);
+
         Map<String, List<String>> result = new HashMap<String, List<String>>();
 
-        InputStream is = context.openFileInput(playerId + ZIP_EXT);
+        InputStream is = context.openFileInput(fileName);
         ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
         try {
             ZipEntry ze;
@@ -166,6 +170,54 @@ public class Vfs {
             }
         });
         return saveFiles;
+    }
+
+    private static String[] getPlayerSaveFiles(Context context, final String playerId) {
+        File saveDir = context.getFilesDir();
+        String[] saveFiles = saveDir.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                if (filename.endsWith(ZIP_EXT)
+                    && filename.startsWith(playerId)
+                )
+                {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return saveFiles;
+    }
+    
+    private static String filterSaveFiles(Context context, String[] saveFiles, String playerId) {
+        List<String> validSaveFileList = new LinkedList<String>();
+
+        Map<String, List<String>> playerAnnotationMap = Vfs.readEntryFromFiles(context, saveFiles, "Annotation");
+
+        for (String saveFile : playerAnnotationMap.keySet()) {
+            if (checkSaveFile(playerId, playerAnnotationMap.get(saveFile))) {
+                validSaveFileList.add(saveFile);
+            } else {
+                deleteFile(context, saveFile);
+            }
+        }
+        
+        Collections.sort(validSaveFileList, new Comparator<String>() {
+            @Override
+            public int compare(String lhs, String rhs) {
+                return rhs.compareTo(lhs);
+            }
+        });
+        
+        for (int i = MAX_SAVE_FILES; i<validSaveFileList.size(); i++) {
+            deleteFile(context, validSaveFileList.get(i));
+        }
+
+        if (validSaveFileList.size() > 0) {
+            return validSaveFileList.get(0);
+        } else {
+            return "";
+        }
     }
 
     public static Map<String, List<String>> readEntryFromFiles(Context context, String[] fileNames, String entry) {

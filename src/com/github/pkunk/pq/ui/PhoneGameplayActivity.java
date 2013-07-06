@@ -84,7 +84,7 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
         super.onStart();
 
         playerId = Vfs.getPlayerId(this);
-        if (playerId == null) {
+        if (playerId == null || playerId.length() == 0) {
             Intent intent = new Intent(PhoneGameplayActivity.this, PhoneRosterActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
