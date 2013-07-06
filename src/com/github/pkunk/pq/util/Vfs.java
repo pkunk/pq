@@ -5,10 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -30,8 +27,8 @@ public class Vfs {
     public static final String EQ = "=";
     public static final String SEPARATOR = ";";
 
-    private static final String ZIP_EXT = ".zip";
-    private static final String BAK_EXT = ".bak";
+    private static final String FILE_NAME_SEPARATOR = ".";
+    private static final String ZIP_EXT = FILE_NAME_SEPARATOR + "zip";
 
 
     public static void setPlayerId(Context context, String playerId) {
@@ -110,7 +107,51 @@ public class Vfs {
     }
 
     public static String[] getPlayersSaveFiles(Context context) {
-        return getAllSaveFiles(context);
+        String[] saveFiles = getAllSaveFiles(context);
+        Map<String, List<String>> playerAnnotationMap = Vfs.readEntryFromFiles(context, saveFiles, "Annotation");
+
+        Map<String, List<String>> playersMap = new HashMap<String, List<String>>();
+        for (String saveFileName : saveFiles) {
+            String playerId = saveFileName.substring(0, saveFileName.indexOf(FILE_NAME_SEPARATOR));
+
+            if (checkSaveFile(playerId, playerAnnotationMap.get(saveFileName))) {
+                List<String> playerFileList;
+                if (playersMap.keySet().contains(playerId)) {
+                    playerFileList = playersMap.get(playerId);
+                } else {
+                    playerFileList = new ArrayList<String>();
+                    playersMap.put(playerId, playerFileList);
+                }
+                playerFileList.add(saveFileName);
+
+            } else {
+                deleteFile(context, saveFileName);
+            }
+        }
+
+        List<String> result = new ArrayList<String>();
+
+        for (List<String> fileNames : playersMap.values()) {
+            assert fileNames.size() > 0;
+
+            Collections.sort(fileNames);
+            result.add(fileNames.get(fileNames.size() - 1));
+        }
+
+        return result.toArray(new String[result.size()]);
+    }
+
+    private static boolean checkSaveFile(String playerId, List<String> annotations) {
+        if (annotations != null) {
+
+            String pattern = PLAYER_ID + Vfs.EQ + playerId;
+            for (String entry : annotations) {
+                if  (pattern.equals(entry)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static String[] getAllSaveFiles(Context context) {
@@ -156,6 +197,12 @@ public class Vfs {
     public static boolean deletePlayerFile(Context context, String playerId) {
         File saveDir = context.getFilesDir();
         File file = new File(saveDir, playerId + ZIP_EXT);
+        return file.delete();
+    }
+
+    private static boolean deleteFile(Context context, String fileName) {
+        File saveDir = context.getFilesDir();
+        File file = new File(saveDir, fileName);
         return file.delete();
     }
 
