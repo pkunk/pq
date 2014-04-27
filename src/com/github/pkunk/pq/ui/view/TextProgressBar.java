@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 public class TextProgressBar extends ProgressBar {
     private String text;
     private Paint textPaint;
+    private Rect bounds = new Rect();
 
     public TextProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -22,13 +23,13 @@ public class TextProgressBar extends ProgressBar {
         textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setAntiAlias(true);
+        textPaint.setTextSize(10 * getContext().getResources().getDisplayMetrics().scaledDensity);
     }
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
         // First draw the regular progress bar, then custom draw our text
         super.onDraw(canvas);
-        Rect bounds = new Rect();
         textPaint.getTextBounds(text, 0, text.length(), bounds);
         int x = getWidth() / 2 - bounds.centerX();
         int y = getHeight() / 2 - bounds.centerY();
