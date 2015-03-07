@@ -354,8 +354,8 @@ public class PhoneGameplayActivity extends Activity implements GameplayServiceLi
             TableRow header = UiUtils.getHeaderRow(itemsTable.getContext(), "Item", "Qty  ");
             itemsTable.addView(header);
             //todo: improve ui
-            for (Map.Entry<String,Integer> spell : player.getInventory().entrySet()) {
-                TableRow row = UiUtils.getTableRow(itemsTable.getContext(), spell.getKey(), spell.getValue().toString());
+            for (Map.Entry<String,Integer> item : player.getInventory().entrySet()) {
+                TableRow row = UiUtils.getTableRow(itemsTable.getContext(), item.getKey(), item.getValue().toString());
                 itemsTable.addView(row);
             }
             TableRow emptyRow = UiUtils.getTableRow(itemsTable.getContext(), "", "");
